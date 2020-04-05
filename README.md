@@ -1,6 +1,6 @@
 # ode-python
 
-This is yet another Python binding of [Open Dynamics Engine](https://www.ode.org/).
+This is yet another Python binding of [Open Dynamics Engine (ODE)](https://www.ode.org/).
 
 # Instalation
 
@@ -8,7 +8,7 @@ Python3 on Linux system is required.
 
 	pip3 install ode-python
 
-Please install ODE or CMake beforehand. pip3 first tries to build and install it using CMake if no ODE shared library can be found on the system.
+Please install ODE or cmake beforehand. pip3 first tries to build and install ODE using cmake if ODE cannot be found on the system.
 
 For example, on debian:
 
