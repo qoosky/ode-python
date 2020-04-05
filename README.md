@@ -6,7 +6,7 @@ This is yet another Python binding of [Open Dynamics Engine (ODE)](https://www.o
 
 Please install ODE somewhere on the system. For example, on debian:
 
-	apt install libode8
+	apt install libode-dev
 
 # Uploading to PyPI
 
