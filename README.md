@@ -1,22 +1,12 @@
 # ode-python
 
-This is yet another Python binding of [Open Dynamics Engine (ODE)](https://www.ode.org/).
-
-# Instalation
-
-Python3 on Linux system is required.
+This is yet another Python binding of [Open Dynamics Engine (ODE)](https://www.ode.org/). Python3 on Linux system is required.
 
 	pip3 install ode-python
 
-Please install ODE or cmake beforehand. pip3 first tries to build and install ODE using cmake if ODE cannot be found on the system.
+Please install ODE somewhere on the system. For example, on debian:
 
-For example, on debian:
-
-	apt install cmake
-
-or
-
-	apt install libode-dev
+	apt install libode8
 
 # Uploading to PyPI
 
