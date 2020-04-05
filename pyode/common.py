@@ -10,6 +10,8 @@ from os import pathsep
 from os import environ
 
 from ctypes import c_float
+from ctypes import Structure
+from ctypes import POINTER
 
 def __GetOdeLib():
     odeLibName = find_library('ode')
@@ -32,3 +34,8 @@ def __load(lib, name, restype, *args):
 
 loadOde = partial(__load, __GetOdeLib())
 dReal = c_float
+
+class dxWorld(Structure):
+    pass
+
+dWorldID = POINTER(dxWorld)
