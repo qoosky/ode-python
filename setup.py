@@ -70,11 +70,12 @@ def InstallPyOde():
         packages=find_packages(),
         author='Qoosky',
         author_email='qoosky.webshop@gmail.com',
-        maintainer='Qoosky',
-        maintainer_email='qoosky.webshop@gmail.com',
         classifiers=[
-            'Programming Language :: Python :: 3 :: Only'
+            'Programming Language :: Python :: 3 :: Only',
+            'License :: OSI Approved :: MIT License',
+            'Operating System :: POSIX :: Linux',
         ],
+        python_requires='>=3',
         install_requires=[],
     )
 
