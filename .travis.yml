@@ -11,15 +11,18 @@ jobs:
   include:
     - stage: test
       name: flake8
+      env:
+        - FLAKE8_IGNORE=""
+        - FLAKE8_EXCLUDE="pyode/__init__.py"
       install:
         - python3 -m pip install flake8
       script:
-        - python3 -m flake8 pyode/*
+        - python3 -m flake8 --ignore ${FLAKE8_IGNORE} --excludee ${FLAKE8_EXCLUDE} pyode/*
     - stage: test
       name: pytest
       install:
-        - apt update
-        - apt install -y libode-dev
+        - sudo apt update
+        - sudo apt install -y libode-dev
       script:
         - python3 -m pytest test/*
     - stage: deploy
