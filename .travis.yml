@@ -12,7 +12,7 @@ jobs:
     - stage: test
       name: flake8
       env:
-        - FLAKE8_IGNORE=""
+        - FLAKE8_IGNORE="E302,E305,E501"
         - FLAKE8_EXCLUDE="pyode/__init__.py"
       install:
         - python3 -m pip install flake8
