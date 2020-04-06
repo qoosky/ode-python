@@ -1,6 +1,26 @@
+stages:
+  - test
+  - name: deploy
+    if: branch = master
+
 language: python
 python:
   - 3.7
-script:
-  - python -m pip install -v .
-  - pytest test/*
+
+jobs:
+  include:
+    - stage: test
+      name: flake8
+      script:
+        - flake8 pyode/*
+    - stage: test
+      name: pytest
+      install:
+        - apt update
+        - apt install -y libode-dev
+      script:
+        - pytest test/*
+    - stage: deploy
+      name: pypi
+      script:
+        - echo ok
