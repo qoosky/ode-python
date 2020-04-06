@@ -2,33 +2,38 @@ stages:
 - test
 - name: deploy
   if: branch = master
+
 language: python
 python:
 - 3.7
+
 jobs:
   include:
   - stage: test
     name: flake8
     env:
-    - FLAKE8_IGNORE="E302,E305,E501"
-    - FLAKE8_EXCLUDE="pyode/__init__.py"
+      - FLAKE8_IGNORE="E302,E305,E501"
+      - FLAKE8_EXCLUDE="pyode/__init__.py"
     install:
-    - python3 -m pip install flake8
+      - python3 -m pip install --user --upgrade flake8
     script:
-    - python3 -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}"
-      pyode/
+      - python3 -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" pyode/
   - stage: test
     name: pytest
     install:
-    - sudo apt update
-    - sudo apt install -y libode-dev
+      - sudo apt update
+      - sudo apt install -y libode-dev
+      - python3 -m pip install --user --upgrade pytest
     script:
-    - python3 -m pytest test/*
+      - python3 -m pytest test/*
   - stage: deploy
     name: pypi
-    provider: pypi
-    user: '__token__'
-    password:
-      secure: Vq8wlEcUsVllyX9QUidBtk516a8ri7Y9ovavicq6OT3shjjlMfwD0EdWCWeMXcNf3wdLV83gsbhWxN5SG1Q+eyXh3mP5tNinz5ADNAEr3MWF/4rIRWtL+dv8kGn2kBYPyum1aMCkpfjHXYoML7XRB/4hgJKD9JvHMM//Exp5DCILi8Wxdb/TX4rcjLsSAXpNxfF4+rFdvq6MhRJ2QiYxJXcnHbvVOEYIM0yispiQaOFDHThnVgAiCFz4jFr8sQGRFbDSNtRwZFaQt2s+5wFTqZ7towaYzGnYdpptXLItYHoSoF97Q23zHhURqwfSSKDcYEjHqZ0tbayfS9ol1c22sga8EfrgB1uJM8BvKvPdgakFGKul7rXmcxL8CumatJbIJ1zPJ6K+oeFQWDmZ/YerToKf72m+LPg7/QhN3hqz0tq9Pmj3sDRPtMftkx3UeSmiC3KXILP1TA3NaGzjbO0c+w0M4li/JVCzXwhM94iG6B8yEzJrMDqiVN2ueUv2oLuGWi0VbY4jncYBjg3nvdaItZ7p1AzSIySfgXvzeSH3dLPkViB7rMfe49SI4tpi5KXL+VzcD1Hu/LoUb3g+3K71gr2KkMkg8inGpxK8AQ5ya/N4hmvOBIHGQcEv5lDp+RuDfsB5QjGGEpPu8HsFXHpBVKWfUEGOhBmHEBoauwUCHvA=
-    # on:
-    #   tags: true
+    env:
+      - PYPI_URL="https://pypi.org/legacy/"
+      - PYPI_USER="__token__"
+      - secure: iOU36VMTjtDkNoaaqDrBHoUxMBfdP1KtWzjwG9LfeQiqEfFO/tVA95RlGoWcvhgBCSX/LFN4nbzk0ZaWpWFzX7DPGCi87WKUC/ymSxxAwfsnkELAfCdHtjLFsN4DqHM2eu5VOdHL6+qxgImQ0mnTOAHAfN3FumfFzqJTv89ZL+vaD8yqjAAt0RRnLtAsDMyokyDW+nLFKAWFbwiqeW3sKqUfHm0hyRGM0yxX7SfOh1vI1MkGr6wWj6I5siPovIqu5OvqyeZQ8IlRVqrbPcD+Al83lmHCFcWWRiksk7tlJ7NV8j9qUIBsxouqRdsEkoPsgGsCfEEsxBwYrybkS19/Gfg3HnU4KljcFKrEE3EldJNEW3xgrmRr/SoCoSl7wbV4BRiZzgR7XbCJYOZZkjP0r+6z/3W++NIRVqqhS1VJVkjJ3e2X8vNTA5fpWJ27VmOaZrCO416a76gvfU+tsXjFo3KwJvnOY0DxnNeI10KRk+90mhW7SfUlsVdof3wQlh/UHaw3FljWBO1MXoIh45wqHX9jTe8kqwKWoEmjgjqp6J1nlaUL7nesVRjxAHxWjXsDWZYW+ge05qs48KS7yPBIEcc8F7EBeEZs3D1kUBDkbrH2bdTfPVp/r2wqLOMLLBFtp3YLB8ZrrQl9yDbopbcAqKYdm92SghfHAa3trgh4/ZE=
+    install:
+      - python3 -m pip install --user --upgrade setuptools wheel twine
+    script:
+      - python3 setup.py sdist bdist_wheel
+      - python3 -m twine upload --repository-url "${PYPI_URL}" -u "${PYPI_USER}" -p "${PYPI_PASSWORD}" dist/*
