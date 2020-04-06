@@ -11,15 +11,17 @@ jobs:
   include:
     - stage: test
       name: flake8
+      install:
+        - python3 -m pip install flake8
       script:
-        - flake8 pyode/*
+        - python3 -m flake8 pyode/*
     - stage: test
       name: pytest
       install:
         - apt update
         - apt install -y libode-dev
       script:
-        - pytest test/*
+        - python3 -m pytest test/*
     - stage: deploy
       name: pypi
       script:
