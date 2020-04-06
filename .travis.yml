@@ -37,3 +37,5 @@ jobs:
     script:
       - python3 setup.py sdist bdist_wheel
       - python3 -m twine upload --repository-url "${PYPI_URL}" -u "${PYPI_USER}" -p "${PYPI_PASSWORD}" dist/*
+    on:
+      tags: true
