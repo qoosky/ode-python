@@ -9,9 +9,10 @@ from os import path
 from os import pathsep
 from os import environ
 
-from ctypes import c_float
 from ctypes import Structure
 from ctypes import POINTER
+from ctypes import c_float
+from ctypes import c_uint32
 
 def __GetOdeLib():
     odeLibName = find_library('ode')
@@ -33,9 +34,30 @@ def __load(lib, name, restype, *args):
     return (CFUNCTYPE(restype, *args))((name, lib))
 
 loadOde = partial(__load, __GetOdeLib())
-dReal = c_float
 
 class dxWorld(Structure):
     pass
 
+class dxSpace(Structure):
+    pass
+
+class dxBody(Structure):
+    pass
+
+class dxGeom(Structure):
+    pass
+
+class dxJoint(Structure):
+    pass
+
+class dxJointGroup(Structure):
+    pass
+
+dReal = c_float
+dTriIndex = c_uint32
 dWorldID = POINTER(dxWorld)
+dSpaceID = POINTER(dxSpace)
+dBodyID = POINTER(dxBody)
+dGeomID = POINTER(dxGeom)
+dJointID = POINTER(dxJoint)
+dJointGroupID = POINTER(dxJointGroup)
