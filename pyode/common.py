@@ -144,12 +144,12 @@ dV4E_X = 0
 dV4E_Y = 1
 dV4E_Z = 2
 
-dVector3 = dReal * dV3E__MAX;
-dVector4 = dReal * dV4E__MAX;
-dMatrix3 = dReal * dM3E__MAX;
-dMatrix4 = dReal * dM4E__MAX;
-dMatrix6 = dReal * (dMD__MAX * dV3E__MAX) * (dMD__MAX * dSA__MAX);
-dQuaternion = dReal * dQUE__MAX;
+dVector3 = dReal * dV3E__MAX
+dVector4 = dReal * dV4E__MAX
+dMatrix3 = dReal * dM3E__MAX
+dMatrix4 = dReal * dM4E__MAX
+dMatrix6 = dReal * (dMD__MAX * dV3E__MAX) * (dMD__MAX * dSA__MAX)
+dQuaternion = dReal * dQUE__MAX
 
 class dxWorld(Structure):
     pass
@@ -176,39 +176,41 @@ dGeomID = POINTER(dxGeom)
 dJointID = POINTER(dxJoint)
 dJointGroupID = POINTER(dxJointGroup)
 
-d_ERR_UNKNOWN = 0  
-d_ERR_IASSERT = 1  
-d_ERR_UASSERT = 2  
-d_ERR_LCP = 3  
-dJointTypeNone = 0  
-dJointTypeBall = 1  
-dJointTypeHinge = 2  
-dJointTypeSlider = 3  
-dJointTypeContact = 4  
-dJointTypeUniversal = 5  
-dJointTypeHinge2 = 6  
-dJointTypeFixed = 7  
-dJointTypeNull = 8  
-dJointTypeAMotor = 9  
-dJointTypeLMotor = 10 
-dJointTypePlane2D = 11 
-dJointTypePR = 12 
-dJointTypePU = 13 
-dJointTypePiston = 14 
-dJointTypeDBall = 15 
-dJointTypeDHinge = 16 
-dJointTypeTransmission = 17 
-dAMotorUser = 0  
-dAMotorEuler = 1  
-dTransmissionParallelAxes = 0  
-dTransmissionIntersectingAxes = 1  
-dTransmissionChainDrive = 2  
+d_ERR_UNKNOWN = 0
+d_ERR_IASSERT = 1
+d_ERR_UASSERT = 2
+d_ERR_LCP = 3
+dJointTypeNone = 0
+dJointTypeBall = 1
+dJointTypeHinge = 2
+dJointTypeSlider = 3
+dJointTypeContact = 4
+dJointTypeUniversal = 5
+dJointTypeHinge2 = 6
+dJointTypeFixed = 7
+dJointTypeNull = 8
+dJointTypeAMotor = 9
+dJointTypeLMotor = 10
+dJointTypePlane2D = 11
+dJointTypePR = 12
+dJointTypePU = 13
+dJointTypePiston = 14
+dJointTypeDBall = 15
+dJointTypeDHinge = 16
+dJointTypeTransmission = 17
+dAMotorUser = 0
+dAMotorEuler = 1
+dTransmissionParallelAxes = 0
+dTransmissionIntersectingAxes = 1
+dTransmissionChainDrive = 2
 
 class dJointFeedback(Structure):
+
     _fields_ = [('f1', dVector3),
                 ('t1', dVector3),
                 ('f2', dVector3),
                 ('t2', dVector3)]
+
     def _init_(self, f1, t1, f2, t2):
         self.f1 = f1
         self.t1 = t1
