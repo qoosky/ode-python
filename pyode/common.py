@@ -12,7 +12,6 @@ from sys import maxsize
 
 from ctypes import Structure
 from ctypes import POINTER
-from ctypes import c_void_p
 from ctypes import c_float
 from ctypes import c_double
 from ctypes import c_char
@@ -217,7 +216,7 @@ class dJointFeedback(Structure):
         self.f2 = f2
         self.t2 = t2
 
-dGeomMoved = loadOde('dGeomMoved', c_void_p, dGeomID)
+dGeomMoved = loadOde('dGeomMoved', None, dGeomID)
 dGeomGetBodyNext = loadOde('dGeomGetBodyNext', dGeomID, dGeomID)
 dGetConfiguration = loadOde('dGetConfiguration', POINTER(c_char))
 dCheckConfiguration = loadOde('dCheckConfiguration', c_int32, POINTER(c_char))

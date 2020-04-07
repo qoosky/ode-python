@@ -9,7 +9,6 @@ from .common import dMatrix3
 from ctypes import Structure
 from ctypes import POINTER
 
-from ctypes import c_void_p
 from ctypes import c_int32
 
 class dMass(Structure):
@@ -24,26 +23,26 @@ class dMass(Structure):
         self.I = I
 
 dMassCheck = loadOde('dMassCheck', c_int32, POINTER(dMass))
-dMassSetZero = loadOde('dMassSetZero', c_void_p, POINTER(dMass))
+dMassSetZero = loadOde('dMassSetZero', None, POINTER(dMass))
 
-dMassSetParameters = loadOde('dMassSetParameters', c_void_p, POINTER(dReal), dReal,
+dMassSetParameters = loadOde('dMassSetParameters', None, POINTER(dReal), dReal,
                              dReal, dReal, dReal,
                              dReal, dReal, dReal,
                              dReal, dReal, dReal)
 
-dMassSetSphere = loadOde('dMassSetSphere', c_void_p, POINTER(dMass), dReal, dReal)
-dMassSetSphereTotal = loadOde('dMassSetSphereTotal', c_void_p, POINTER(dMass), dReal, dReal)
-dMassSetCapsule = loadOde('dMassSetCapsule', c_void_p, POINTER(dMass), dReal, c_int32, dReal, dReal)
-dMassSetCapsuleTotal = loadOde('dMassSetCapsuleTotal', c_void_p, POINTER(dMass), dReal, c_int32, dReal, dReal)
-dMassSetCylinder = loadOde('dMassSetCylinder', c_void_p, POINTER(dMass), dReal, c_int32, dReal, dReal)
-dMassSetCylinderTotal = loadOde('dMassSetCylinderTotal', c_void_p, POINTER(dMass), dReal, c_int32, dReal, dReal)
-dMassSetBox = loadOde('dMassSetBox', c_void_p, POINTER(dMass), dReal, dReal, dReal, dReal)
-dMassSetBoxTotal = loadOde('dMassSetBoxTotal', c_void_p, POINTER(dMass), dReal, dReal, dReal, dReal)
-dMassSetTrimesh = loadOde('dMassSetTrimesh', c_void_p, POINTER(dMass), dReal, dGeomID)
-dMassSetTrimeshTotal = loadOde('dMassSetTrimeshTotal', c_void_p, POINTER(dMass), dReal, dGeomID)
-dMassAdjust = loadOde('dMassAdjust', c_void_p, POINTER(dMass), dReal)
-dMassTranslate = loadOde('dMassTranslate', c_void_p, POINTER(dMass), dReal, dReal, dReal)
-dMassRotate = loadOde('dMassRotate', c_void_p, POINTER(dMass), dMatrix3)
-dMassAdd = loadOde('dMassAdd', c_void_p, POINTER(dMass), POINTER(dMass))
-dMassSetCappedCylinder = loadOde('dMassSetCappedCylinder', c_void_p, POINTER(dMass), dReal, c_int32, dReal, dReal)
-dMassSetCappedCylinderTotal = loadOde('dMassSetCappedCylinderTotal', c_void_p, POINTER(dMass), dReal, c_int32, dReal, dReal)
+dMassSetSphere = loadOde('dMassSetSphere', None, POINTER(dMass), dReal, dReal)
+dMassSetSphereTotal = loadOde('dMassSetSphereTotal', None, POINTER(dMass), dReal, dReal)
+dMassSetCapsule = loadOde('dMassSetCapsule', None, POINTER(dMass), dReal, c_int32, dReal, dReal)
+dMassSetCapsuleTotal = loadOde('dMassSetCapsuleTotal', None, POINTER(dMass), dReal, c_int32, dReal, dReal)
+dMassSetCylinder = loadOde('dMassSetCylinder', None, POINTER(dMass), dReal, c_int32, dReal, dReal)
+dMassSetCylinderTotal = loadOde('dMassSetCylinderTotal', None, POINTER(dMass), dReal, c_int32, dReal, dReal)
+dMassSetBox = loadOde('dMassSetBox', None, POINTER(dMass), dReal, dReal, dReal, dReal)
+dMassSetBoxTotal = loadOde('dMassSetBoxTotal', None, POINTER(dMass), dReal, dReal, dReal, dReal)
+dMassSetTrimesh = loadOde('dMassSetTrimesh', None, POINTER(dMass), dReal, dGeomID)
+dMassSetTrimeshTotal = loadOde('dMassSetTrimeshTotal', None, POINTER(dMass), dReal, dGeomID)
+dMassAdjust = loadOde('dMassAdjust', None, POINTER(dMass), dReal)
+dMassTranslate = loadOde('dMassTranslate', None, POINTER(dMass), dReal, dReal, dReal)
+dMassRotate = loadOde('dMassRotate', None, POINTER(dMass), dMatrix3)
+dMassAdd = loadOde('dMassAdd', None, POINTER(dMass), POINTER(dMass))
+dMassSetCappedCylinder = loadOde('dMassSetCappedCylinder', None, POINTER(dMass), dReal, c_int32, dReal, dReal)
+dMassSetCappedCylinderTotal = loadOde('dMassSetCappedCylinderTotal', None, POINTER(dMass), dReal, c_int32, dReal, dReal)
