@@ -6,6 +6,7 @@ from .common import dReal
 from .common import dWorldID
 from .common import dBodyID
 from .common import dVector3
+from pyode import dMass
 
 from ctypes import Structure
 from ctypes import POINTER
@@ -44,3 +45,6 @@ dWorldSetStepMemoryReservationPolicy = loadOde('dWorldSetStepMemoryReservationPo
 dWorldStep = loadOde('dWorldStep', c_int32, dWorldID, dReal)
 dBodyGetPosition = loadOde('dBodyGetPosition', POINTER(dReal), dBodyID)
 dBodyCreate = loadOde('dBodyCreate', dBodyID, dWorldID)
+dBodyGetRotation = loadOde('dBodyGetRotation', POINTER(dReal), dBodyID)
+dBodySetMass = loadOde('dBodySetMass', None, dBodyID, POINTER(dMass))
+dBodySetPosition = loadOde('dBodySetPosition', None, dBodyID, dReal, dReal, dReal)
