@@ -28,7 +28,7 @@ def __GetOdeLib():
             ldLibraryPath = []
         else:
             ldLibraryPath = ldLibraryPath.split(pathsep)
-        localOdeInstallLibDir = path.join(environ.get('HOME'), '.pyode', 'lib')
+        localOdeInstallLibDir = path.join(environ.get('HOME'), '.odepy', 'lib')
         ldLibraryPath.append(localOdeInstallLibDir)
         environ['LD_LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
         odeLib = CDLL(path.join(localOdeInstallLibDir, find_library('ode')), use_errno=True)

@@ -6,7 +6,7 @@ from .common import dReal
 from .common import dWorldID
 from .common import dBodyID
 from .common import dVector3
-from pyode import dMass
+from .mass import dMass
 
 from ctypes import Structure
 from ctypes import POINTER

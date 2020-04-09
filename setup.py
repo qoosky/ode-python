@@ -22,10 +22,10 @@ def Main():
     if version_info.major < 3:
         exit('Python 2 is not supported.')
 
-    localOdeInstallDir = path.join(environ.get('HOME'), '.pyode')
+    localOdeInstallDir = path.join(environ.get('HOME'), '.odepy')
     if not CheckOde(localOdeInstallDir):
         InstallOde(localOdeInstallDir, odeSourceDir='ode-0.16.1')
-    InstallPyOde()
+    InstallOdePy()
 
 def CheckOde(localOdeInstallDir):
     ldLibraryPath = environ.get('LD_LIBRARY_PATH')
@@ -58,7 +58,7 @@ def InstallOde(localOdeInstallDir, odeSourceDir):
         if tmpDir is not None:
             rmtree(tmpDir)
 
-def InstallPyOde():
+def InstallOdePy():
     setup(
         name='ode-python',
         version='0.0.2',

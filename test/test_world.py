@@ -4,21 +4,21 @@ from pytest import fixture
 
 from ctypes import byref
 
-from pyode import dInitODE
-from pyode import dCloseODE
-from pyode import dWorldCreate
-from pyode import dWorldSetGravity
-from pyode import dWorldStep
-from pyode import dWorldDestroy
-from pyode import dMass
-from pyode import dMassSetZero
-from pyode import dMassSetSphereTotal
-from pyode import dBodyCreate
-from pyode import dBodySetMass
-from pyode import dBodySetPosition
-from pyode import dBodyGetPosition
-from pyode import dBodyGetRotation
-from pyode import dBodyGetLinearVel
+from odepy import dInitODE
+from odepy import dCloseODE
+from odepy import dWorldCreate
+from odepy import dWorldSetGravity
+from odepy import dWorldStep
+from odepy import dWorldDestroy
+from odepy import dMass
+from odepy import dMassSetZero
+from odepy import dMassSetSphereTotal
+from odepy import dBodyCreate
+from odepy import dBodySetMass
+from odepy import dBodySetPosition
+from odepy import dBodyGetPosition
+from odepy import dBodyGetRotation
+from odepy import dBodyGetLinearVel
 
 class TestWorld(object):
 

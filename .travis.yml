@@ -13,11 +13,11 @@ jobs:
     name: flake8
     env:
       - FLAKE8_IGNORE="E302,E305,E501,E741"
-      - FLAKE8_EXCLUDE="pyode/__init__.py"
+      - FLAKE8_EXCLUDE="odepy/__init__.py"
     install:
       - python3 -m pip install --upgrade flake8
     script:
-      - python3 -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" pyode/ test/
+      - python3 -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" odepy/ test/
   - stage: test
     name: pytest
     install:
