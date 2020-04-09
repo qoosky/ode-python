@@ -1,12 +1,9 @@
 stages:
 - test
 - name: deploy
-  if: (language = 3.7) AND (tag =~ ^v) AND (branch = master)
+  if: (tag =~ ^v) AND (branch = master)
 
 language: python
-python:
-- 2.7
-- 3.7
 
 jobs:
   include:
@@ -15,12 +12,18 @@ jobs:
     env:
       - FLAKE8_IGNORE="E302,E305,E501,E741"
       - FLAKE8_EXCLUDE="odepy/__init__.py"
+    python:
+      - 2.7
+      - 3.7
     install:
       - python -m pip install --upgrade flake8
     script:
       - python -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" odepy/ test/
   - stage: test
     name: pytest
+    python:
+      - 2.7
+      - 3.7
     install:
       - sudo apt update
       - sudo apt install -y libode-dev
@@ -33,6 +36,8 @@ jobs:
       - PYPI_URL="https://upload.pypi.org/legacy/"
       - PYPI_USER="__token__"
       - secure: iOU36VMTjtDkNoaaqDrBHoUxMBfdP1KtWzjwG9LfeQiqEfFO/tVA95RlGoWcvhgBCSX/LFN4nbzk0ZaWpWFzX7DPGCi87WKUC/ymSxxAwfsnkELAfCdHtjLFsN4DqHM2eu5VOdHL6+qxgImQ0mnTOAHAfN3FumfFzqJTv89ZL+vaD8yqjAAt0RRnLtAsDMyokyDW+nLFKAWFbwiqeW3sKqUfHm0hyRGM0yxX7SfOh1vI1MkGr6wWj6I5siPovIqu5OvqyeZQ8IlRVqrbPcD+Al83lmHCFcWWRiksk7tlJ7NV8j9qUIBsxouqRdsEkoPsgGsCfEEsxBwYrybkS19/Gfg3HnU4KljcFKrEE3EldJNEW3xgrmRr/SoCoSl7wbV4BRiZzgR7XbCJYOZZkjP0r+6z/3W++NIRVqqhS1VJVkjJ3e2X8vNTA5fpWJ27VmOaZrCO416a76gvfU+tsXjFo3KwJvnOY0DxnNeI10KRk+90mhW7SfUlsVdof3wQlh/UHaw3FljWBO1MXoIh45wqHX9jTe8kqwKWoEmjgjqp6J1nlaUL7nesVRjxAHxWjXsDWZYW+ge05qs48KS7yPBIEcc8F7EBeEZs3D1kUBDkbrH2bdTfPVp/r2wqLOMLLBFtp3YLB8ZrrQl9yDbopbcAqKYdm92SghfHAa3trgh4/ZE=
+    python:
+      - 3.7
     install:
       - python3 -m pip install --upgrade setuptools wheel twine
     script:
