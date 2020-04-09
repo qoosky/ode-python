@@ -3,7 +3,6 @@
 from setuptools import setup
 from setuptools import find_packages
 
-from sys import version_info
 from sys import exit
 
 from os import environ
@@ -18,10 +17,6 @@ from tempfile import mkdtemp
 from shutil import rmtree
 
 def Main():
-
-    if version_info.major < 3:
-        exit('Python 2 is not supported.')
-
     localOdeInstallDir = path.join(environ.get('HOME'), '.odepy')
     if not CheckOde(localOdeInstallDir):
         InstallOde(localOdeInstallDir, odeSourceDir='ode-0.16.1')
@@ -35,6 +30,7 @@ def CheckOde(localOdeInstallDir):
         ldLibraryPath = ldLibraryPath.split(pathsep)
     ldLibraryPath.append(path.join(localOdeInstallDir, 'lib'))
     environ['LD_LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
+    environ['LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
     return find_library('ode') is not None
 
 def InstallOde(localOdeInstallDir, odeSourceDir):
@@ -65,17 +61,17 @@ def InstallOdePy():
         url='https://github.com/qoosky/ode-python',
         license='MIT',
         description='Open Dynamics Engine (ODE) python binding.',
-        long_description=open('README.md', encoding='utf-8').read(),
+        long_description=open('README.md').read(),
         long_description_content_type='text/markdown',
         packages=find_packages(),
         author='Qoosky',
         author_email='qoosky.webshop@gmail.com',
         classifiers=[
-            'Programming Language :: Python :: 3 :: Only',
+            'Programming Language :: Python :: 2',
+            'Programming Language :: Python :: 3',
             'License :: OSI Approved :: MIT License',
             'Operating System :: POSIX :: Linux',
         ],
-        python_requires='>=3',
         install_requires=[],
     )
 
