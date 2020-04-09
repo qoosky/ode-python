@@ -48,14 +48,14 @@ class TestWorld(object):
 
     def test_freefall(self, g, world, sphere):
         z0 = 5.0
-        deltaT = 0.01
+        tDelta = 0.01
         eps = 0.05
         dBodySetPosition(sphere, 0.0, 0.0, z0)
         for i in range(99):
             pos = dBodyGetPosition(sphere)
             rot = dBodyGetRotation(sphere)
             vel = dBodyGetLinearVel(sphere)
-            t = deltaT * i
+            t = tDelta * i
             v = -g * t
             z = z0 - (g * t * t / 2.0)
             for i in range(3):
@@ -71,5 +71,4 @@ class TestWorld(object):
                         assert(rot[4 * i + j] == 1.0)
                     else:
                         assert(rot[4 * i + j] == 0.0)
-            assert(dWorldStep(world, deltaT) == 1)
-        assert True
+            assert(dWorldStep(world, tDelta) == 1)
