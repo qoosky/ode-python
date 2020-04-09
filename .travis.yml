@@ -17,7 +17,7 @@ jobs:
     install:
       - python3 -m pip install --upgrade flake8
     script:
-      - python3 -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" pyode/
+      - python3 -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" .
   - stage: test
     name: pytest
     install:

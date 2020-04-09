@@ -10,8 +10,6 @@ from pyode import dWorldCreate
 from pyode import dWorldSetGravity
 from pyode import dWorldStep
 from pyode import dWorldDestroy
-from pyode import dVector3
-from pyode import dMatrix3
 from pyode import dMass
 from pyode import dMassSetZero
 from pyode import dMassSetSphereTotal
