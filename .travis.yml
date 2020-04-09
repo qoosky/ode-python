@@ -1,19 +1,17 @@
 stages:
 - test
 - name: deploy
-  if: (python = 3.7) AND (tag =~ ^v) AND (branch = master)
-
-language: python
-python:
-  - 2.7
-  - 3.7
-before_install:
-  - python -m pip install --upgrade pip
+  if: (tag =~ ^v) AND (branch = master)
 
 jobs:
   include:
+
   - stage: test
     name: flake8
+    language: python
+    python:
+      - 2.7
+      - 3.7
     env:
       - FLAKE8_IGNORE="E302,E305,E501,E741"
       - FLAKE8_EXCLUDE="odepy/__init__.py"
@@ -21,16 +19,25 @@ jobs:
       - python -m pip install --upgrade flake8
     script:
       - python -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" odepy/ test/
+
   - stage: test
     name: pytest
+    language: python
+    python:
+      - 2.7
+      - 3.7
     install:
       - sudo apt update
       - sudo apt install -y libode-dev
       - python -m pip install --upgrade pytest
     script:
       - python -m pytest test/*
+
   - stage: deploy
     name: pypi
+    language: python
+    python:
+      - 3.7
     env:
       - PYPI_URL="https://upload.pypi.org/legacy/"
       - PYPI_USER="__token__"
