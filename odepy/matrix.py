@@ -19,7 +19,6 @@ dIsPositiveDefinite = loadOde('dIsPositiveDefinite', c_int32, POINTER(dReal), c_
 dFactorLDLT = loadOde('dFactorLDLT', None, POINTER(dReal), POINTER(dReal), c_int32, c_int32)
 dSolveL1 = loadOde('dSolveL1', None, POINTER(dReal), POINTER(dReal), c_int32, c_int32)
 dSolveL1T = loadOde('dSolveL1T', None, POINTER(dReal), POINTER(dReal), c_int32, c_int32)
-dScaleVector = loadOde('dScaleVector', None, POINTER(dReal), POINTER(dReal), c_int32)
 dVectorScale = loadOde('dVectorScale', None, POINTER(dReal), POINTER(dReal), c_int32)
 dSolveLDLT = loadOde('dSolveLDLT', None, POINTER(dReal), POINTER(dReal), POINTER(dReal), c_int32, c_int32)
 dLDLTAddTL = loadOde('dLDLTAddTL', None, POINTER(dReal), POINTER(dReal), POINTER(dReal), c_int32, c_int32)
