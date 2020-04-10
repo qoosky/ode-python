@@ -4,7 +4,6 @@ from .collision import *
 from .collision_space import *
 from .collision_trimesh import *
 from .common import *
-from .compatibility import *
 from .contact import *
 from .cooperative import *
 from .error import *
