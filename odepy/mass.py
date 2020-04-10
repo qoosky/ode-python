@@ -24,12 +24,10 @@ class dMass(Structure):
 
 dMassCheck = loadOde('dMassCheck', c_int32, POINTER(dMass))
 dMassSetZero = loadOde('dMassSetZero', None, POINTER(dMass))
-
 dMassSetParameters = loadOde('dMassSetParameters', None, POINTER(dReal), dReal,
                              dReal, dReal, dReal,
                              dReal, dReal, dReal,
                              dReal, dReal, dReal)
-
 dMassSetSphere = loadOde('dMassSetSphere', None, POINTER(dMass), dReal, dReal)
 dMassSetSphereTotal = loadOde('dMassSetSphereTotal', None, POINTER(dMass), dReal, dReal)
 dMassSetCapsule = loadOde('dMassSetCapsule', None, POINTER(dMass), dReal, c_int32, dReal, dReal)
