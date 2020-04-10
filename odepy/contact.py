@@ -7,6 +7,41 @@ from .common import dGeomID
 from ctypes import Structure
 from ctypes import c_int32
 
+class dSurfaceParameters(Structure):
+
+    _fields_ = [('mode', c_int32),
+                ('mu', dReal),
+                ('mu2', dReal),
+                ('rho', dReal),
+                ('rho2', dReal),
+                ('rhoN', dReal),
+                ('bounce', dReal),
+                ('bounce_vel', dReal),
+                ('soft_erp', dReal),
+                ('soft_cfm', dReal),
+                ('motion1', dReal),
+                ('motion2', dReal),
+                ('motionN', dReal),
+                ('slip1', dReal),
+                ('slip2', dReal)]
+
+    def _init_(self, mode, mu, mu2, rho, rho2, rhoN, bounce, bounce_vel, soft_erp, soft_cfm, motion1, motion2, motionN, slip1, slip2):
+        self.mode = mode
+        self.mu = mu
+        self.mu2 = mu2
+        self.rho = rho
+        self.rho2 = rho2
+        self.rhoN = rhoN
+        self.bounce = bounce
+        self.bounce_vel = bounce_vel
+        self.soft_erp = soft_erp
+        self.soft_cfm = soft_cfm
+        self.motion1 = motion1
+        self.motion2 = motion2
+        self.motionN = motionN
+        self.slip1 = slip1
+        self.slip2 = slip2
+
 class dContactGeom(Structure):
 
     _fields_ = [('pos', dVector3),
@@ -25,3 +60,14 @@ class dContactGeom(Structure):
         self.g2 = g2
         self.side1 = side1
         self.side2 = side2
+
+class dContact(Structure):
+
+    _fields_ = [('surface', dSurfaceParameters),
+                ('geom', dContactGeom),
+                ('fdir1', dVector3)]
+
+    def _init_(self, surface, geom, fdir1):
+        self.surface = surface
+        self.geom = geom
+        self.fdir1 = fdir1
