@@ -6,8 +6,11 @@ from .common import dSpaceID
 from .common import dVector3
 
 from ctypes import POINTER
+from ctypes import CFUNCTYPE
+from ctypes import c_void_p
 from ctypes import c_int32
 
+dNearCallback = CFUNCTYPE(None, c_void_p, dGeomID, dGeomID)
 dSimpleSpaceCreate = loadOde('dSimpleSpaceCreate', dSpaceID, dSpaceID)
 dHashSpaceCreate = loadOde('dHashSpaceCreate', dSpaceID, dSpaceID)
 dQuadTreeSpaceCreate = loadOde('dQuadTreeSpaceCreate', dSpaceID, dSpaceID, dVector3, dVector3, c_int32)
