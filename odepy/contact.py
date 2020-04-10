@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from .common import loadOde
 from .common import dVector3
 from .common import dReal
 from .common import dGeomID
