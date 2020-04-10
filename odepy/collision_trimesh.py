@@ -30,7 +30,6 @@ dMTV__MAX = 3
 dGeomTriMeshDataCreate = loadOde('dGeomTriMeshDataCreate', dTriMeshDataID)
 dGeomTriMeshDataDestroy = loadOde('dGeomTriMeshDataDestroy', None, dTriMeshDataID)
 dGeomTriMeshDataSet = loadOde('dGeomTriMeshDataSet', None, dTriMeshDataID, c_int32, c_void_p)
-dGeomTriMeshDataGet2 = loadOde('dGeomTriMeshDataGet2', c_void_p, dTriMeshDataID, c_int32, POINTER(c_uint32))
 dGeomTriMeshSetLastTransform = loadOde('dGeomTriMeshSetLastTransform', None, dGeomID, dMatrix4)
 dGeomTriMeshGetLastTransform = loadOde('dGeomTriMeshGetLastTransform', POINTER(dReal), dGeomID)
 dGeomTriMeshDataBuildSingle = loadOde('dGeomTriMeshDataBuildSingle', None, dTriMeshDataID,
