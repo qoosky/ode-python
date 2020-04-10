@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from .common import loadOde
-
 from ctypes import Structure
 from ctypes import POINTER
 
