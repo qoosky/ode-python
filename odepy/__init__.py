@@ -7,7 +7,6 @@ from .common import *
 from .contact import *
 from .cooperative import *
 from .error import *
-from .export_dif import *
 from .mass import *
 from .matrix import *
 from .matrix_coop import *
