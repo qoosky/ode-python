@@ -12,7 +12,6 @@ from ctypes import Structure
 from ctypes import POINTER
 from ctypes import CFUNCTYPE
 from ctypes import c_int32
-from ctypes import c_uint32
 from ctypes import c_void_p
 from ctypes import c_uint8
 
