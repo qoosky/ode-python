@@ -20,6 +20,10 @@ from ctypes import c_void_p
 from ctypes import c_int32
 from ctypes import c_uint32
 from ctypes import c_ulong
+from ctypes import c_uint8
+from ctypes import c_uint16
+from ctypes import c_float
+from ctypes import c_double
 
 dGeomDestroy = loadOde('dGeomDestroy', None, dGeomID)
 dGeomSetData = loadOde('dGeomSetData', None, dGeomID, c_void_p)
@@ -116,3 +120,57 @@ dHeightfieldGetHeight = CFUNCTYPE(dReal, c_void_p, c_int32, c_int32)
 dCreateHeightfield = loadOde('dCreateHeightfield', dGeomID, dSpaceID, dHeightfieldDataID, c_int32)
 dGeomHeightfieldDataCreate = loadOde('dGeomHeightfieldDataCreate', dHeightfieldDataID)
 dGeomHeightfieldDataDestroy = loadOde('dGeomHeightfieldDataDestroy', None, dHeightfieldDataID)
+dGeomHeightfieldDataBuildCallback = loadOde('dGeomHeightfieldDataBuildCallback', None, dHeightfieldDataID,
+                                            c_void_p, POINTER(dHeightfieldGetHeight),
+                                            dReal, dReal, c_int32, c_int32,
+                                            dReal, dReal, dReal, c_int32)
+dGeomHeightfieldDataBuildByte = loadOde('dGeomHeightfieldDataBuildByte', None, dHeightfieldDataID,
+                                        POINTER(c_uint8), c_int32,
+                                        dReal, dReal, c_int32, c_int32,
+                                        dReal, dReal, dReal, c_int32)
+dGeomHeightfieldDataBuildShort = loadOde('dGeomHeightfieldDataBuildShort', None, dHeightfieldDataID,
+                                         POINTER(c_uint16), c_int32,
+                                         dReal, dReal, c_int32, c_int32,
+                                         dReal, dReal, dReal, c_int32)
+dGeomHeightfieldDataBuildSingle = loadOde('dGeomHeightfieldDataBuildSingle', None, dHeightfieldDataID,
+                                          POINTER(c_float), c_int32,
+                                          dReal, dReal, c_int32, c_int32,
+                                          dReal, dReal, dReal, c_int32)
+dGeomHeightfieldDataBuildDouble = loadOde('dGeomHeightfieldDataBuildDouble', None, dHeightfieldDataID,
+                                          POINTER(c_double), c_int32,
+                                          dReal, dReal, c_int32, c_int32,
+                                          dReal, dReal, dReal, c_int32)
+dGeomHeightfieldDataSetBounds = loadOde('dGeomHeightfieldDataSetBounds', None, dHeightfieldDataID, dReal, dReal)
+dGeomHeightfieldSetHeightfieldData = loadOde('dGeomHeightfieldSetHeightfieldData', None, dGeomID, dHeightfieldDataID)
+dGeomHeightfieldGetHeightfieldData = loadOde('dGeomHeightfieldGetHeightfieldData', dHeightfieldDataID, dGeomID)
+dClosestLineSegmentPoints = loadOde('dClosestLineSegmentPoints', None, dVector3, dVector3, dVector3, dVector3, dVector3, dVector3)
+dBoxTouchesBox = loadOde('dBoxTouchesBox', c_int32, dVector3, dMatrix3, dVector3, dVector3, dMatrix3, dVector3)
+dBoxBox = loadOde('dBoxBox', c_int32, dVector3, dMatrix3, dVector3, dVector3, dMatrix3, dVector3,
+                  dVector3, POINTER(dReal), POINTER(c_int32),
+                  c_int32, POINTER(dContactGeom), c_int32)
+dInfiniteAABB = loadOde('dInfiniteAABB', None, dGeomID, POINTER(dReal))
+dGetAABBFn = CFUNCTYPE(None, dGeomID, POINTER(dReal))
+dColliderFn = CFUNCTYPE(c_int32, dGeomID, dGeomID, c_int32, POINTER(dContactGeom), c_int32)
+dGetColliderFnFn = CFUNCTYPE(POINTER(dColliderFn), c_int32)
+dGeomDtorFn = CFUNCTYPE(None, dGeomID)
+dAABBTestFn = CFUNCTYPE(c_int32, dGeomID, dGeomID, POINTER(dReal))
+
+class dGeomClass(Structure):
+
+    _fields_ = [('bytes', c_int32),
+                ('collider', POINTER(dGetColliderFnFn)),
+                ('aabb', POINTER(dGetAABBFn)),
+                ('aabb_test', POINTER(dAABBTestFn)),
+                ('dtor', POINTER(dGeomDtorFn))]
+
+    def _init_(self, bytes, collider, aabb, aabb_test, dtor):
+        self.bytes = bytes
+        self.collider = collider
+        self.aabb = aabb
+        self.aabb_test = aabb_test
+        self.dtor = dtor
+
+dCreateGeomClass = loadOde('dCreateGeomClass', c_int32, POINTER(dGeomClass))
+dGeomGetClassData = loadOde('dGeomGetClassData', c_void_p, dGeomID)
+dCreateGeom = loadOde('dCreateGeom', dGeomID, c_int32)
+dSetColliderOverride = loadOde('dSetColliderOverride', None, c_int32, c_int32, POINTER(dColliderFn))
