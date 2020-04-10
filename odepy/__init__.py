@@ -22,4 +22,3 @@ from .rotation import *
 from .threading import *
 from .threading_impl import *
 from .timer import *
-from .version import *
