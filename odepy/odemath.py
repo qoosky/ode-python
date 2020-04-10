@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from .common import loadOde
-from .common import dReal
 from .common import dVector3
 from .common import dVector4
 from .common import dMatrix3
