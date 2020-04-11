@@ -13,8 +13,6 @@ from .matrix_coop import *
 from .memory import *
 from .misc import *
 from .objects import *
-from .odecpp import *
-from .odecpp_collision import *
 from .odeinit import *
 from .odemath import *
 from .rotation import *
