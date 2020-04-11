@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from .base import TestBase
+from pytest import fixture
+from ctypes import byref
+
+from odepy import dMass
+from odepy import dMassSetZero
+from odepy import dMassSetSphereTotal
+
+from odepy import dBodyCreate
+from odepy import dBodySetMass
 
 from odepy import dWorldStep
 from odepy import dBodySetPosition
@@ -8,7 +16,18 @@ from odepy import dBodyGetPosition
 from odepy import dBodyGetRotation
 from odepy import dBodyGetLinearVel
 
-class TestWorld(TestBase):
+class TestWorld(object):
+
+    @fixture
+    def sphere(self, world):
+        r = 0.1
+        m = 1.0
+        mass = dMass()
+        dMassSetZero(byref(mass))
+        dMassSetSphereTotal(byref(mass), m, r)
+        sphere = dBodyCreate(world)
+        dBodySetMass(sphere, byref(mass))
+        return sphere
 
     def test_freefall(self, g, world, sphere):
         z0 = 5.0
