@@ -55,10 +55,8 @@ class TestSpace(object):
     def test_collision(self, world, space, ground, ball):
         nearCallback = NearCallback(ground=ground)
         tDelta = 0.01
-        x0 = 0.0
-        y0 = 0.0
         z0 = 3.0
-        dBodySetPosition(ball['body'], x0, y0, z0)
+        dBodySetPosition(ball['body'], 0, 0, z0)
         for i in range(99):
             dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
             assert(dWorldStep(world, tDelta) == 1)
