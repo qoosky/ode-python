@@ -14,6 +14,8 @@ from odepy import dMassSetZero
 from odepy import dMassSetSphereTotal
 from odepy import dBodyCreate
 from odepy import dBodySetMass
+from odepy import dHashSpaceCreate
+from odepy import dSpaceDestroy
 
 class TestBase(object):
 
@@ -40,3 +42,9 @@ class TestBase(object):
         dMassSetSphereTotal(byref(mass), m, r)
         dBodySetMass(sphere, byref(mass))
         return sphere
+
+    @fixture
+    def space(self):
+        space = dHashSpaceCreate(0)
+        yield space
+        dSpaceDestroy(space)
