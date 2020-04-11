@@ -52,5 +52,5 @@ class TestSpace(object):
             dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
             pos = dBodyGetPosition(ball['body'])
             aaa = [pos[i] for i in range(4)]
-            print(pos[2])
+            print(aaa[2])
             dWorldStep(world, 0.01)
