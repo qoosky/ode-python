@@ -70,6 +70,27 @@ dGeomGetOffsetQuaternion = loadOde('dGeomGetOffsetQuaternion', None, dGeomID, dQ
 dCollide = loadOde('dCollide', c_int32, dGeomID, dGeomID, c_int32, POINTER(dContactGeom), c_int32)
 dSpaceCollide = loadOde('dSpaceCollide', None, dSpaceID, c_void_p, dNearCallback)
 dSpaceCollide2 = loadOde('dSpaceCollide2', None, dGeomID, dGeomID, c_void_p, dNearCallback)
+
+dSphereClass = 0
+dBoxClass = 1
+dCapsuleClass = 2
+dCylinderClass = 3
+dPlaneClass = 4
+dRayClass = 5
+dConvexClass = 6
+dGeomTransformClass = 7
+dTriMeshClass = 8
+dHeightfieldClass = 9
+dFirstSpaceClass = 10
+dSimpleSpaceClass = 10
+dHashSpaceClass = 11
+dSweepAndPruneSpaceClass = 12
+dQuadTreeSpaceClass = 13
+dLastSpaceClass = 13
+dFirstUserClass = 14
+dLastUserClass = 17
+dGeomNumClasses = 18
+
 dCreateSphere = loadOde('dCreateSphere', dGeomID, dSpaceID, dReal)
 dGeomSphereSetRadius = loadOde('dGeomSphereSetRadius', None, dGeomID, dReal)
 dGeomSphereGetRadius = loadOde('dGeomSphereGetRadius', dReal, dGeomID)
