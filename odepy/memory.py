@@ -2,7 +2,6 @@
 
 from .common import loadOde
 
-from ctypes import POINTER
 from ctypes import CFUNCTYPE
 from ctypes import c_void_p
 from ctypes import c_int32
