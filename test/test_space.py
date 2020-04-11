@@ -34,12 +34,12 @@ from odepy import dContactBounce
 
 class NearCallback(object):
 
-    def __init__(self, ground, world, contactgroup):
+    def __init__(self, world, ground, contactgroup):
+        self.__world = world
+        self.__ground = ground
+        self.__contactgroup = contactgroup
         self.__count = 0
         self.__isError = False
-        self.__ground = ground
-        self.__world = world
-        self.__contactgroup = contactgroup
 
     def GetCount(self):
         return self.__count
@@ -97,7 +97,7 @@ class TestSpace(object):
         return contactgroup
 
     def test_collision(self, world, space, ground, ball, contactgroup):
-        nearCallback = NearCallback(ground=ground, world=world, contactgroup=contactgroup)
+        nearCallback = NearCallback(world=world, ground=ground, contactgroup=contactgroup)
         tDelta = 0.01
         z0 = 3.0
         dBodySetPosition(ball['body'], 0, 0, z0)
