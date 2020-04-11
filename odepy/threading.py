@@ -56,7 +56,7 @@ dThreadedCallWaitResetFunction = CFUNCTYPE(None, dThreadingImplementationID, dCa
 dThreadedCallWaitFreeFunction = CFUNCTYPE(None, dThreadingImplementationID, dCallWaitID)
 dThreadedCallPostFunction = CFUNCTYPE(None, dThreadingImplementationID, POINTER(c_int32),
                                       POINTER(dCallReleaseeID), ddependencycount_t, dCallReleaseeID,
-                                      dCallWaitID, POINTER(dThreadedCallFunction), c_void_p, dcallindex_t,
+                                      dCallWaitID, dThreadedCallFunction, c_void_p, dcallindex_t,
                                       POINTER(c_char))
 dThreadedCallDependenciesCountAlterFunction = CFUNCTYPE(None, dThreadingImplementationID, dCallReleaseeID, ddependencychange_t)
 dThreadedCallWaitFunction = CFUNCTYPE(None, dThreadingImplementationID, POINTER(c_int32),
@@ -68,18 +68,18 @@ dThreadingImplResourcesForCallsPreallocateFunction = CFUNCTYPE(c_int32, dThreadi
 class dThreadingFunctionsInfo(Structure):
 
     _fields_ = [('struct_size', c_uint32),
-                ('alloc_mutex_group', POINTER(dMutexGroupAllocFunction)),
-                ('free_mutex_group', POINTER(dMutexGroupFreeFunction)),
-                ('lock_group_mutex', POINTER(dMutexGroupMutexLockFunction)),
-                ('unlock_group_mutex', POINTER(dMutexGroupMutexUnlockFunction)),
-                ('alloc_call_wait', POINTER(dThreadedCallWaitAllocFunction)),
-                ('reset_call_wait', POINTER(dThreadedCallWaitResetFunction)),
-                ('free_call_wait', POINTER(dThreadedCallWaitFreeFunction)),
-                ('post_call', POINTER(dThreadedCallPostFunction)),
-                ('alter_call_dependencies_count', POINTER(dThreadedCallDependenciesCountAlterFunction)),
-                ('wait_call', POINTER(dThreadedCallWaitFunction)),
-                ('retrieve_thread_count', POINTER(dThreadingImplThreadCountRetrieveFunction)),
-                ('preallocate_resources_for_calls', POINTER(dThreadingImplResourcesForCallsPreallocateFunction))]
+                ('alloc_mutex_group', dMutexGroupAllocFunction),
+                ('free_mutex_group', dMutexGroupFreeFunction),
+                ('lock_group_mutex', dMutexGroupMutexLockFunction),
+                ('unlock_group_mutex', dMutexGroupMutexUnlockFunction),
+                ('alloc_call_wait', dThreadedCallWaitAllocFunction),
+                ('reset_call_wait', dThreadedCallWaitResetFunction),
+                ('free_call_wait', dThreadedCallWaitFreeFunction),
+                ('post_call', dThreadedCallPostFunction),
+                ('alter_call_dependencies_count', dThreadedCallDependenciesCountAlterFunction),
+                ('wait_call', dThreadedCallWaitFunction),
+                ('retrieve_thread_count', dThreadingImplThreadCountRetrieveFunction),
+                ('preallocate_resources_for_calls', dThreadingImplResourcesForCallsPreallocateFunction)]
 
     def _init_(self, struct_size, alloc_mutex_group, free_mutex_group, lock_group_mutex, unlock_group_mutex, alloc_call_wait, reset_call_wait, free_call_wait, post_call, alter_call_dependencies_count, wait_call, retrieve_thread_count, preallocate_resources_for_calls):
         self.struct_size = struct_size

@@ -11,7 +11,12 @@ from ctypes import c_void_p
 from ctypes import c_int32
 
 dNearCallback = CFUNCTYPE(None, c_void_p, dGeomID, dGeomID)
-dSimpleSpaceCreate = loadOde('dSimpleSpaceCreate', dSpaceID, dSpaceID)
+
+def dSimpleSpaceCreate(space):
+    if isinstance(space, int):
+        return loadOde('dSimpleSpaceCreate', dSpaceID, c_int32)(space)
+    else:
+        return loadOde('dSimpleSpaceCreate', dSpaceID, dSpaceID)(space)
 
 def dHashSpaceCreate(space):
     if isinstance(space, int):

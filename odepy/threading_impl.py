@@ -24,8 +24,7 @@ dThreadingFreeImplementation = loadOde('dThreadingFreeImplementation', None, dTh
 
 dThreadReadyToServeCallback = CFUNCTYPE(None, c_void_p)
 
-dExternalThreadingServeMultiThreadedImplementation = loadOde('dExternalThreadingServeMultiThreadedImplementation', None, dThreadingImplementationID,
-                                                             POINTER(dThreadReadyToServeCallback), c_void_p)
+dExternalThreadingServeMultiThreadedImplementation = loadOde('dExternalThreadingServeMultiThreadedImplementation', None, dThreadingImplementationID, dThreadReadyToServeCallback, c_void_p)
 dThreadingAllocateThreadPool = loadOde('dThreadingAllocateThreadPool', dThreadingThreadPoolID, c_uint32, c_uint32, c_uint32, c_void_p)
 dThreadingThreadPoolServeMultiThreadedImplementation = loadOde('dThreadingThreadPoolServeMultiThreadedImplementation', None, dThreadingThreadPoolID, dThreadingImplementationID)
 dThreadingThreadPoolWaitIdleState = loadOde('dThreadingThreadPoolWaitIdleState', None, dThreadingThreadPoolID)
