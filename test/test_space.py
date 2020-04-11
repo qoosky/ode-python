@@ -4,6 +4,7 @@ from pytest import fixture
 
 from ctypes import byref
 from ctypes import addressof
+from ctypes import sizeof
 
 from odepy import dWorldStep
 from odepy import dSpaceCollide
@@ -20,21 +21,59 @@ from odepy import dBodyGetPosition
 
 from odepy import dCreateSphere
 from odepy import dGeomSetBody
+from odepy import dGeomGetBody
+from odepy import dGeomSphereGetRadius
+
+from odepy import dJointGroupCreate
+from odepy import dJointGroupEmpty
+from odepy import dJointCreateContact
+from odepy import dJointAttach
+from odepy import dContact
+from odepy import dCollide
+from odepy import dContactBounce
 
 class NearCallback(object):
 
-    def __init__(self, ground):
+    def __init__(self, ground, world, contactgroup):
         self.__count = 0
+        self.__isError = False
         self.__ground = ground
+        self.__world = world
+        self.__contactgroup = contactgroup
 
     def GetCount(self):
         return self.__count
+
+    def IsError(self):
+        return self.__isError
 
     def Callback(self, data, o1, o2):
         self.__count += 1
         o1IsGround = addressof(self.__ground.contents) == addressof(o1.contents)
         o2IsGround = addressof(self.__ground.contents) == addressof(o2.contents)
-        assert(o1IsGround or o2IsGround)
+        if not (o1IsGround or o2IsGround):
+            self.__isError = True
+            return
+        ballGeom = o2 if o1IsGround else o1
+        ballBody = dGeomGetBody(ballGeom)
+        r = dGeomSphereGetRadius(ballGeom)
+        z = dBodyGetPosition(ballBody)[2]
+        if not (0 <= z and z <= r):
+            self.__isError = True
+            return
+        N = 10
+        contacts = (dContact * N)()
+        n = dCollide(o1, o2, N, byref(contacts[0].geom), sizeof(dContact))
+        if not n == 1:
+            self.__isError = True
+            return
+        contact = contacts[0]
+        contact.surface.mu = float('inf')
+        contact.surface.mode = dContactBounce
+        contact.surface.bounce = 1.0
+        contact.surface.bounce_vel = 0.0
+        c = dJointCreateContact(self.__world, self.__contactgroup, byref(contact))
+        dJointAttach(c, dGeomGetBody(contact.geom.g1), dGeomGetBody(contact.geom.g2))
 
 class TestSpace(object):
 
@@ -52,12 +91,19 @@ class TestSpace(object):
         ball = {'body': body, 'geom': geom}
         return ball
 
-    def test_collision(self, world, space, ground, ball):
-        nearCallback = NearCallback(ground=ground)
+    @fixture
+    def contactgroup(self):
+        contactgroup = dJointGroupCreate(0)
+        return contactgroup
+
+    def test_collision(self, world, space, ground, ball, contactgroup):
+        nearCallback = NearCallback(ground=ground, world=world, contactgroup=contactgroup)
         tDelta = 0.01
         z0 = 3.0
         dBodySetPosition(ball['body'], 0, 0, z0)
-        for i in range(99):
+        for i in range(999):
             dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
             assert(dWorldStep(world, tDelta) == 1)
+            dJointGroupEmpty(contactgroup)
         assert(nearCallback.GetCount() > 0)
+        assert(not nearCallback.IsError())

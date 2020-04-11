@@ -7,6 +7,24 @@ from .common import dGeomID
 from ctypes import Structure
 from ctypes import c_int32
 
+dContactMu2 = 1
+dContactAxisDep = 1
+dContactFDir1 = 2
+dContactBounce = 4
+dContactSoftERP = 8
+dContactSoftCFM = 16
+dContactMotion1 = 32
+dContactMotion2 = 64
+dContactMotionN = 128
+dContactSlip1 = 256
+dContactSlip2 = 512
+dContactRolling = 1024
+dContactApprox0 = 0
+dContactApprox1_1 = 4096
+dContactApprox1_2 = 8192
+dContactApprox1_N = 16384
+dContactApprox1 = 28672
+
 class dSurfaceParameters(Structure):
 
     _fields_ = [('mode', c_int32),
