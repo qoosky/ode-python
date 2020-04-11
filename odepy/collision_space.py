@@ -11,8 +11,19 @@ from ctypes import c_void_p
 from ctypes import c_int32
 
 dNearCallback = CFUNCTYPE(None, c_void_p, dGeomID, dGeomID)
-dSimpleSpaceCreate = loadOde('dSimpleSpaceCreate', dSpaceID, dSpaceID)
-dHashSpaceCreate = loadOde('dHashSpaceCreate', dSpaceID, dSpaceID)
+
+def dSimpleSpaceCreate(space):
+    if isinstance(space, int):
+        return loadOde('dSimpleSpaceCreate', dSpaceID, c_int32)(space)
+    else:
+        return loadOde('dSimpleSpaceCreate', dSpaceID, dSpaceID)(space)
+
+def dHashSpaceCreate(space):
+    if isinstance(space, int):
+        return loadOde('dHashSpaceCreate', dSpaceID, c_int32)(space)
+    else:
+        return loadOde('dHashSpaceCreate', dSpaceID, dSpaceID)(space)
+
 dQuadTreeSpaceCreate = loadOde('dQuadTreeSpaceCreate', dSpaceID, dSpaceID, dVector3, dVector3, c_int32)
 dSweepAndPruneSpaceCreate = loadOde('dSweepAndPruneSpaceCreate', dSpaceID, dSpaceID, c_int32)
 dSpaceDestroy = loadOde('dSpaceDestroy', None, dSpaceID)

@@ -2,7 +2,7 @@
 
 This is yet another Python binding of [Open Dynamics Engine (ODE)](https://www.ode.org/).
 
-	pip3 install ode-python
+	pip install ode-python
 
 Please install ODE somewhere on the system. For example, on debian:
 
