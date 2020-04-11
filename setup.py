@@ -15,6 +15,7 @@ from ctypes.util import find_library
 from subprocess import check_call
 from tempfile import mkdtemp
 from shutil import rmtree
+from shutil import copyfile
 
 def Main():
     localOdeInstallDir = path.join(environ.get('HOME'), '.odepy')
@@ -42,13 +43,14 @@ def InstallOde(localOdeInstallDir, odeSourceDir):
         chdir(tmpDir)
         cmakeArgs = [
             '-DBUILD_SHARED_LIBS=ON',
-            '-DODE_WITH_DEMOS=OFF',
+            '-DODE_WITH_DEMOS=ON',
             '-DODE_WITH_TESTS=OFF',
             '-DCMAKE_INSTALL_PREFIX={}'.format(localOdeInstallDir)
         ]
         check_call(['cmake', path.join(packageDir, odeSourceDir)] + cmakeArgs)
         check_call(['make'])
         check_call(['make', 'install'])
+        copyfile('libdrawstuff.so', path.join(localOdeInstallDir, 'lib', 'libdrawstuff.so'))
     finally:
         chdir(originalWorkDir)
         if tmpDir is not None:
