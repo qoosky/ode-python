@@ -178,6 +178,8 @@ dGeomID = POINTER(dxGeom)
 dJointID = POINTER(dxJoint)
 dJointGroupID = POINTER(dxJointGroup)
 
+dJointType = c_int32
+
 d_ERR_UNKNOWN = 0
 d_ERR_IASSERT = 1
 d_ERR_UASSERT = 2
