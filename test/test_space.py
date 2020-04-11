@@ -96,7 +96,7 @@ class TestSpace(object):
         contactgroup = dJointGroupCreate(0)
         return contactgroup
 
-    def test_collision(self, world, space, ground, ball, contactgroup):
+    def test_bounce(self, world, space, ground, ball, contactgroup):
         nearCallback = NearCallback(world=world, ground=ground, contactgroup=contactgroup)
         tDelta = 0.01
         z0 = 3.0
