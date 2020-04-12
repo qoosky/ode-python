@@ -49,13 +49,13 @@ class NearCallback(object):
 
     def Callback(self, data, o1, o2):
         self.__count += 1
-        # o1IsGround = addressof(self.__ground.contents) == addressof(o1.contents)
-        # o2IsGround = addressof(self.__ground.contents) == addressof(o2.contents)
-        # if not (o1IsGround or o2IsGround):
-        #     self.__isError = True
-        #     return
-        # ballGeom = o2 if o1IsGround else o1
-        # ballBody = dGeomGetBody(ballGeom)
+        o1IsGround = addressof(self.__ground.contents) == addressof(o1.contents)
+        o2IsGround = addressof(self.__ground.contents) == addressof(o2.contents)
+        if not (o1IsGround or o2IsGround):
+            self.__isError = True
+            return
+        ballGeom = o2 if o1IsGround else o1
+        ballBody = dGeomGetBody(ballGeom)
         # r = dGeomSphereGetRadius(ballGeom)
         # z = dBodyGetPosition(ballBody)[2]
         # if not (0 <= z and z <= r):
@@ -77,7 +77,7 @@ class NearCallback(object):
 
 class TestSpace(object):
 
-    # debug = False
+    debug = False
 
     @fixture
     def ball(self, world, space):
@@ -104,14 +104,14 @@ class TestSpace(object):
         z0 = 3.0
         dBodySetPosition(ball['body'], 0, 0, z0)
 
-        # if self.debug:
-        #     from .utils.drawstuff import Drawstuff
-        #     Drawstuff(world=world, geoms=[ball['geom']], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
+        if self.debug:
+            from .utils.drawstuff import Drawstuff
+            Drawstuff(world=world, geoms=[ball['geom']], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
 
         for i in range(999):
             hoge = dNearCallback(nearCallback.Callback)
             dSpaceCollide(space, 0, hoge)
             assert(dWorldStep(world, tDelta) == 1)
             dJointGroupEmpty(contactgroup)
-        # assert(nearCallback.GetCount() > 0)
+        assert(nearCallback.GetCount() > 0)
         assert(not nearCallback.IsError())
