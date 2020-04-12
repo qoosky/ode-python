@@ -18,7 +18,6 @@ dCooperativeID = POINTER(dxCooperative)
 dResourceRequirementsID = POINTER(dxResourceRequirements)
 dResourceContainerID = POINTER(dxResourceContainer)
 
-dCooperativeDestroy = loadOde('dCooperativeDestroy', None, dCooperativeID)
 dResourceRequirementsCreate = loadOde('dResourceRequirementsCreate', dResourceRequirementsID, dCooperativeID)
 dResourceRequirementsDestroy = loadOde('dResourceRequirementsDestroy', None, dResourceRequirementsID)
 dResourceRequirementsClone = loadOde('dResourceRequirementsClone', dResourceRequirementsID, dResourceRequirementsID)
