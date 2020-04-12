@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from pytest import fixture
-
 from ctypes import POINTER
 from ctypes import create_string_buffer
 from ctypes import byref
@@ -80,7 +78,7 @@ class Drawstuff(object):
             pos = dBodyGetPosition(body)
             rot = dBodyGetRotation(body)
             dsSetColor(0.0, 1.0, 0.0)
-            dsDrawSphereD(pos, rot, 0.2)
+            dsDrawSphereD(pos, rot, r)
 
     def Run(self):
         argc = 0

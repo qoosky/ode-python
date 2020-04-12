@@ -8,7 +8,6 @@ from functools import partial
 from os import path
 from os import pathsep
 from os import environ
-from sys import maxsize
 
 from ctypes import Structure
 from ctypes import POINTER
@@ -33,7 +32,7 @@ def __GetDrawstuffLib():
     environ['LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
     drawstuffLibName = find_library('drawstuff')
     if drawstuffLibName is None:
-        raise OdePyError('drawstuff library not found.')
+        raise DrawstuffPyError('drawstuff library not found.')
     if path.exists(path.join(localOdeInstallLibDir, drawstuffLibName)):
         return CDLL(path.join(localOdeInstallLibDir, drawstuffLibName), use_errno=True)
     return CDLL(drawstuffLibName, use_errno=True)
