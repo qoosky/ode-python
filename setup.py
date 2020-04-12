@@ -57,7 +57,7 @@ def InstallOde(localOdeInstallDir, odeSourceDir):
 def InstallOdePy():
     setup(
         name='ode-python',
-        version='0.0.3',
+        version='0.0.4',
         url='https://github.com/qoosky/ode-python',
         license='MIT',
         description='Open Dynamics Engine (ODE) python binding.',
