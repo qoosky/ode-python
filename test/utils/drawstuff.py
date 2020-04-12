@@ -34,7 +34,7 @@ class Drawstuff(object):
     def __init__(self, world, geoms, space=None, contactgroup=None, nearCallback=None,
                  tDelta=0.01,
                  dsVersion=DS_VERSION,
-                 pathToTextures='./ode-0.16.1/drawstuff/textures',
+                 pathToTextures='./ode-0.16.1/drawstuff/textures'.encode('utf-8'),
                  cameraXyz=[3.0, 0.0, 1.0],
                  cameraHpr=[-180.0, 0.0, 0.0]):
         self.__world = world
