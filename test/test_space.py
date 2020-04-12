@@ -34,7 +34,8 @@ from odepy import dContactBounce
 
 class NearCallback(object):
 
-    def __init__(self, world, ground, contactgroup):
+    def __init__(self, world, ground, contactgroup, ball):
+        self.ball = ball
         self.__world = world
         self.__ground = ground
         self.__contactgroup = contactgroup
@@ -54,7 +55,14 @@ class NearCallback(object):
         if not (o1IsGround or o2IsGround):
             self.__isError = True
             return
-        ballGeom = o2 if o1IsGround else o1
+
+        o1IsBall = addressof(self.ball.contents) == addressof(o1.contents)
+        o2IsBall = addressof(self.ball.contents) == addressof(o2.contents)
+        if not (o1IsBall or o2IsBall):
+            self.__isError = True
+            return
+
+        ballGeom = o1 if o1IsBall else o2
         ballBody = dGeomGetBody(ballGeom)
         r = dGeomSphereGetRadius(ballGeom)
         # z = dBodyGetPosition(ballBody)[2]
@@ -100,7 +108,7 @@ class TestSpace(object):
         return contactgroup
 
     def test_bounce(self, world, space, ground, ball, contactgroup):
-        nearCallback = NearCallback(world=world, ground=ground, contactgroup=contactgroup)
+        nearCallback = NearCallback(world=world, ground=ground, contactgroup=contactgroup, ball=ball['geom'])
         tDelta = 0.01
         z0 = 3.0
         dBodySetPosition(ball['body'], 0, 0, z0)
