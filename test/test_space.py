@@ -32,8 +32,6 @@ from odepy import dContact
 from odepy import dCollide
 from odepy import dContactBounce
 
-from .utils.drawstuff import Drawstuff
-
 class NearCallback(object):
 
     def __init__(self, world, ground, contactgroup):
@@ -107,6 +105,7 @@ class TestSpace(object):
         dBodySetPosition(ball['body'], 0, 0, z0)
 
         if self.debug:
+            from .utils.drawstuff import Drawstuff
             Drawstuff(world=world, geoms=[ball['geom']], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
 
         for i in range(999):
