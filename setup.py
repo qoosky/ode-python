@@ -3,8 +3,6 @@
 from setuptools import setup
 from setuptools import find_packages
 
-from sys import exit
-
 from os import environ
 from os import getcwd
 from os import chdir

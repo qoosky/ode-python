@@ -21,7 +21,7 @@ jobs:
     install:
       - python3 -m pip install --upgrade flake8
     script:
-      - python3 -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" odepy/ drawstuffpy/ test/
+      - python3 -m flake8 --ignore "${FLAKE8_IGNORE}" --exclude "${FLAKE8_EXCLUDE}" setup.py odepy/ drawstuffpy/ test/
   - stage: test
     name: pytest3
     install:
