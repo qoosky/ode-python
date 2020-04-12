@@ -109,7 +109,8 @@ class TestSpace(object):
         #     Drawstuff(world=world, geoms=[ball['geom']], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
 
         for i in range(999):
-            # dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
+            hoge = dNearCallback(nearCallback.Callback)
+            # dSpaceCollide(space, 0, hoge)
             assert(dWorldStep(world, tDelta) == 1)
             dJointGroupEmpty(contactgroup)
         # assert(nearCallback.GetCount() > 0)
