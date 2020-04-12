@@ -12,7 +12,7 @@ To install ODE on debian for example:
 
 Code samples are available in `test` directory.
 
-![Bounce](https://github.com/qoosky/ode-python/blob/master/images/bounce.png)
+![Bounce](https://raw.githubusercontent.com/qoosky/ode-python/master/images/bounce.png)
 
 
 License
