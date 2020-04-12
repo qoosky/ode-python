@@ -77,7 +77,7 @@ class NearCallback(object):
 
 class TestSpace(object):
 
-    debug = False
+    # debug = False
 
     @fixture
     def ball(self, world, space):
@@ -104,9 +104,9 @@ class TestSpace(object):
         z0 = 3.0
         dBodySetPosition(ball['body'], 0, 0, z0)
 
-        if self.debug:
-            from .utils.drawstuff import Drawstuff
-            Drawstuff(world=world, geoms=[ball['geom']], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
+        # if self.debug:
+        #     from .utils.drawstuff import Drawstuff
+        #     Drawstuff(world=world, geoms=[ball['geom']], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
 
         for i in range(999):
             dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
