@@ -34,11 +34,11 @@ from odepy import dContactBounce
 
 class NearCallback(object):
 
-    def __init__(self, world, ground, contactgroup, ball):
-        self.ball = ball
+    def __init__(self, world, contactgroup, groundGeom, ballGeom):
         self.__world = world
-        self.__ground = ground
         self.__contactgroup = contactgroup
+        self.__groundGeom = groundGeom
+        self.__ballGeom = ballGeom
         self.__count = 0
         self.__isError = False
 
@@ -49,33 +49,33 @@ class NearCallback(object):
         return self.__isError
 
     def Callback(self, data, o1, o2):
-        self.__count += 1
-        o1IsGround = addressof(self.__ground.contents) == addressof(o1.contents)
-        o2IsGround = addressof(self.__ground.contents) == addressof(o2.contents)
+        o1IsGround = addressof(self.__groundGeom.contents) == addressof(o1.contents)
+        o2IsGround = addressof(self.__groundGeom.contents) == addressof(o2.contents)
         if not (o1IsGround or o2IsGround):
-            self.__isError = True
             return
 
-        o1IsBall = addressof(self.ball.contents) == addressof(o1.contents)
-        o2IsBall = addressof(self.ball.contents) == addressof(o2.contents)
+        o1IsBall = addressof(self.__ballGeom.contents) == addressof(o1.contents)
+        o2IsBall = addressof(self.__ballGeom.contents) == addressof(o2.contents)
         if not (o1IsBall or o2IsBall):
-            # self.__isError = True
             return
+
+        self.__count += 1
 
         ballGeom = o1 if o1IsBall else o2
         ballBody = dGeomGetBody(ballGeom)
         r = dGeomSphereGetRadius(ballGeom)
-        # self.__isError = True
         z = dBodyGetPosition(ballBody)[2]
         if not (0 <= z and z <= r):
             self.__isError = True
             return
+
         N = 10
         contacts = (dContact * N)()
         n = dCollide(o1, o2, N, byref(contacts[0].geom), sizeof(dContact))
         if not n == 1:
             self.__isError = True
             return
+
         contact = contacts[0]
         contact.surface.mu = float('inf')
         contact.surface.mode = dContactBounce
@@ -108,7 +108,7 @@ class TestSpace(object):
         return contactgroup
 
     def test_bounce(self, world, space, ground, ball, contactgroup):
-        nearCallback = NearCallback(world=world, ground=ground, contactgroup=contactgroup, ball=ball['geom'])
+        nearCallback = NearCallback(world=world, contactgroup=contactgroup, groundGeom=ground, ballGeom=ball['geom'])
         tDelta = 0.01
         z0 = 3.0
         dBodySetPosition(ball['body'], 0, 0, z0)
@@ -118,10 +118,7 @@ class TestSpace(object):
             Drawstuff(world=world, geoms=[ball['geom']], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
 
         for i in range(999):
-            hoge = dNearCallback(nearCallback.Callback)
-            dSpaceCollide(space, 0, hoge)
-            pos = dBodyGetPosition(ball['body'])
-            print(pos[2])
+            dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
             assert(dWorldStep(world, tDelta) == 1)
             dJointGroupEmpty(contactgroup)
         assert(nearCallback.GetCount() > 0)
