@@ -56,11 +56,7 @@ class NearCallback(object):
             return
         ballGeom = o2 if o1IsGround else o1
         ballBody = dGeomGetBody(ballGeom)
-        print(ballGeom)
-        print(type(ballGeom))
-        print(ballBody)
-        print(type(ballBody))
-        # r = dGeomSphereGetRadius(ballGeom)
+        r = dGeomSphereGetRadius(ballGeom)
         # z = dBodyGetPosition(ballBody)[2]
         # if not (0 <= z and z <= r):
         # if not (z <= r):
