@@ -8,7 +8,7 @@ Please install ODE somewhere on the system. For example, on debian:
 
 	apt install libode-dev
 
-![Bounce](images/bounce.png)
+![Bounce](https://github.com/qoosky/ode-python/blob/master/images/bounce.png)
 
 
 License
