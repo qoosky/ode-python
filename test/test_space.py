@@ -64,7 +64,7 @@ class NearCallback(object):
             return
         N = 10
         contacts = (dContact * N)()
-        n = dCollide(o1, o2, N, byref(contacts[0].geom), sizeof(dContact))
+        # n = dCollide(o1, o2, N, byref(contacts[0].geom), sizeof(dContact))
         # if not n == 1:
         #     self.__isError = True
         #     return
