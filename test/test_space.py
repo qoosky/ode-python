@@ -59,7 +59,7 @@ class NearCallback(object):
         o1IsBall = addressof(self.ball.contents) == addressof(o1.contents)
         o2IsBall = addressof(self.ball.contents) == addressof(o2.contents)
         if not (o1IsBall or o2IsBall):
-            self.__isError = True
+            # self.__isError = True
             return
 
         ballGeom = o1 if o1IsBall else o2
