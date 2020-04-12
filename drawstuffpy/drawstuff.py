@@ -49,18 +49,18 @@ DS_CHECKERED = 2
 DS_GROUND = 3
 DS_SKY = 4
 
-startCallback = CFUNCTYPE(None)
-stepCallback = CFUNCTYPE(None, c_int32)
-commandCallback = CFUNCTYPE(None, c_int32)
-stopCallback = CFUNCTYPE(None)
+dsStartCallback = CFUNCTYPE(None)
+dsStepCallback = CFUNCTYPE(None, c_int32)
+dsCommandCallback = CFUNCTYPE(None, c_int32)
+dsStopCallback = CFUNCTYPE(None)
 
 class dsFunctions(Structure):
 
     _fields_ = [('version', c_int32),
-                ('start', startCallback),
-                ('step', stepCallback),
-                ('command', commandCallback),
-                ('stop', stopCallback),
+                ('start', dsStartCallback),
+                ('step', dsStepCallback),
+                ('command', dsCommandCallback),
+                ('stop', dsStopCallback),
                 ('path_to_textures', POINTER(c_char))]
 
     def _init_(self, version, start, step, command, stop):

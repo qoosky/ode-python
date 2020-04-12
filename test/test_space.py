@@ -32,6 +32,8 @@ from odepy import dContact
 from odepy import dCollide
 from odepy import dContactBounce
 
+from .utils.drawstuff import Drawstuff
+
 class NearCallback(object):
 
     def __init__(self, world, ground, contactgroup):
@@ -70,12 +72,14 @@ class NearCallback(object):
         contact = contacts[0]
         contact.surface.mu = float('inf')
         contact.surface.mode = dContactBounce
-        contact.surface.bounce = 1.0
+        contact.surface.bounce = 0.95
         contact.surface.bounce_vel = 0.0
         c = dJointCreateContact(self.__world, self.__contactgroup, byref(contact))
         dJointAttach(c, dGeomGetBody(contact.geom.g1), dGeomGetBody(contact.geom.g2))
 
 class TestSpace(object):
+
+    debug = False
 
     @fixture
     def ball(self, world, space):
@@ -101,6 +105,10 @@ class TestSpace(object):
         tDelta = 0.01
         z0 = 3.0
         dBodySetPosition(ball['body'], 0, 0, z0)
+
+        if self.debug:
+            Drawstuff(world=world, geoms=[ball['geom']], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
+
         for i in range(999):
             dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
             assert(dWorldStep(world, tDelta) == 1)
