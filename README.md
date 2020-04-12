@@ -10,6 +10,8 @@ To install ODE on debian for example:
 
 	apt install libode-dev
 
+Sample codes are available in `test` directory.
+
 ![Bounce](https://github.com/qoosky/ode-python/blob/master/images/bounce.png)
 
 
