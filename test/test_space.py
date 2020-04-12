@@ -24,7 +24,6 @@ from odepy import dGeomSetBody
 from odepy import dGeomGetBody
 from odepy import dGeomSphereGetRadius
 
-from odepy import dJointGroupCreate
 from odepy import dJointGroupEmpty
 from odepy import dJointCreateContact
 from odepy import dJointAttach
@@ -101,11 +100,6 @@ class TestSpace(object):
         dGeomSetBody(geom, body)
         ball = {'body': body, 'geom': geom}
         return ball
-
-    @fixture
-    def contactgroup(self):
-        contactgroup = dJointGroupCreate(0)
-        return contactgroup
 
     def test_bounce(self, world, space, ground, ball, contactgroup):
         nearCallback = NearCallback(world=world, contactgroup=contactgroup, groundGeom=ground, ballGeom=ball['geom'])

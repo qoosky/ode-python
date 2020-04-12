@@ -31,16 +31,16 @@ class DrawstuffError(Exception):
 
 class Drawstuff(object):
 
-    def __init__(self, world, geoms, space=None, contactgroup=None, nearCallback=None,
+    def __init__(self, world, space, contactgroup, geoms, nearCallback,
                  tDelta=0.01,
                  dsVersion=DS_VERSION,
                  pathToTextures='./ode-0.16.1/drawstuff/textures'.encode('utf-8'),
                  cameraXyz=[3.0, 0.0, 1.0],
                  cameraHpr=[-180.0, 0.0, 0.0]):
         self.__world = world
-        self.__geoms = geoms
         self.__space = space
         self.__contactgroup = contactgroup
+        self.__geoms = geoms
         self.__nearCallback = nearCallback
         self.__tDelta = tDelta
         self.__dsVersion = dsVersion
@@ -66,8 +66,7 @@ class Drawstuff(object):
         dsSetViewpoint(xyz, hpr)
 
     def __StepCallback(self, pause):
-        if self.__space is not None and self.__nearCallback is not None:
-            dSpaceCollide(self.__space, 0, dNearCallback(self.__nearCallback))
+        dSpaceCollide(self.__space, 0, dNearCallback(self.__nearCallback))
         dWorldStep(self.__world, self.__tDelta)
         dJointGroupEmpty(self.__contactgroup)
         for geom in self.__geoms:
