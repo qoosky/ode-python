@@ -15,7 +15,6 @@ class dxThreadingThreadPool(Structure):
 
 dThreadingThreadPoolID = POINTER(dxThreadingThreadPool)
 
-dThreadingAllocateSelfThreadedImplementation = loadOde('dThreadingAllocateSelfThreadedImplementation', dThreadingImplementationID)
 dThreadingAllocateMultiThreadedImplementation = loadOde('dThreadingAllocateMultiThreadedImplementation', dThreadingImplementationID)
 dThreadingImplementationGetFunctions = loadOde('dThreadingImplementationGetFunctions', POINTER(dThreadingFunctionsInfo), dThreadingImplementationID)
 dThreadingImplementationShutdownProcessing = loadOde('dThreadingImplementationShutdownProcessing', None, dThreadingImplementationID)
