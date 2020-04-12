@@ -29,7 +29,7 @@ jobs:
       - sudo apt install -y libode-dev
       - python3 -m pip install --upgrade pytest
     script:
-      - python3 -m pytest test/*
+      - python3 -m pytest -v -s test/*
   - stage: test
     name: pytest2
     python:
@@ -39,7 +39,7 @@ jobs:
       - sudo apt install -y libode-dev
       - python2 -m pip install --upgrade pytest
     script:
-      - python2 -m pytest test/*
+      - python2 -m pytest -v -s test/*
   - stage: deploy
     name: pypi
     env:
