@@ -216,7 +216,6 @@ dJointSetSliderAxisDelta = loadOde('dJointSetSliderAxisDelta', None, dJointID, d
 dJointSetSliderParam = loadOde('dJointSetSliderParam', None, dJointID, c_int32, dReal)
 dJointAddSliderForce = loadOde('dJointAddSliderForce', None, dJointID, dReal)
 dJointSetHinge2Anchor = loadOde('dJointSetHinge2Anchor', None, dJointID, dReal, dReal, dReal)
-dJointSetHinge2Axes = loadOde('dJointSetHinge2Axes', None, dJointID, POINTER(dReal), POINTER(dReal))
 dJointSetHinge2Axis1 = loadOde('dJointSetHinge2Axis1', None, dJointID, dReal, dReal, dReal)
 dJointSetHinge2Axis2 = loadOde('dJointSetHinge2Axis2', None, dJointID, dReal, dReal, dReal)
 dJointSetHinge2Param = loadOde('dJointSetHinge2Param', None, dJointID, c_int32, dReal)

@@ -22,8 +22,6 @@ class OdePyError(Exception):
     pass
 
 def __GetOdeLib():
-    if find_library('ode') is not None:
-        return CDLL(find_library('ode'), use_errno=True)
     ldLibraryPath = environ.get('LD_LIBRARY_PATH')
     if ldLibraryPath is None:
         ldLibraryPath = []
@@ -33,12 +31,19 @@ def __GetOdeLib():
     ldLibraryPath.append(localOdeInstallLibDir)
     environ['LD_LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
     environ['LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
-    if find_library('ode') is None:
+    odeLibName = find_library('ode')
+    if odeLibName is None:
         raise OdePyError('ODE library not found.')
-    return CDLL(path.join(localOdeInstallLibDir, find_library('ode')), use_errno=True)
+    if path.exists(path.join(localOdeInstallLibDir, odeLibName)):
+        return CDLL(path.join(localOdeInstallLibDir, odeLibName), use_errno=True)
+    return CDLL(odeLibName, use_errno=True)
 
 def __load(lib, name, restype, *args):
-    return (CFUNCTYPE(restype, *args))((name, lib))
+    try:
+        return (CFUNCTYPE(restype, *args))((name, lib))
+    except AttributeError as e:
+        print('{} is not available for the installed ODE: {}'.format(name, str(e)))
+        return None
 
 loadOde = partial(__load, __GetOdeLib())
 

@@ -5,11 +5,9 @@ from .collision_space import *
 from .collision_trimesh import *
 from .common import *
 from .contact import *
-from .cooperative import *
 from .error import *
 from .mass import *
 from .matrix import *
-from .matrix_coop import *
 from .memory import *
 from .misc import *
 from .objects import *
