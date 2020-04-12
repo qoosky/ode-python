@@ -1,7 +1,7 @@
 stages:
 - test
 - name: deploy
-  if: tag =~ ^v
+  if: (tag =~ ^v) AND (branch = master)
 
 git:
   depth: 1
