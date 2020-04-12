@@ -59,10 +59,10 @@ class NearCallback(object):
         r = dGeomSphereGetRadius(ballGeom)
         z = dBodyGetPosition(ballBody)[2]
         # if not (0 <= z and z <= r):
-        if not (z <= r):
-            self.__isError = True
-            return
-        N = 10
+        # if not (z <= r):
+        #     self.__isError = True
+        #     return
+        # N = 10
         # contacts = (dContact * N)()
         # n = dCollide(o1, o2, N, byref(contacts[0].geom), sizeof(dContact))
         # if not n == 1:
