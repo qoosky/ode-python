@@ -120,6 +120,8 @@ class TestSpace(object):
         for i in range(999):
             hoge = dNearCallback(nearCallback.Callback)
             dSpaceCollide(space, 0, hoge)
+            pos = dBodyGetPosition(ball['body'])
+            print(pos[2])
             assert(dWorldStep(world, tDelta) == 1)
             dJointGroupEmpty(contactgroup)
         assert(nearCallback.GetCount() > 0)
