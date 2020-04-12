@@ -65,25 +65,24 @@ class NearCallback(object):
         ballGeom = o1 if o1IsBall else o2
         ballBody = dGeomGetBody(ballGeom)
         r = dGeomSphereGetRadius(ballGeom)
-        self.__isError = True
-        # z = dBodyGetPosition(ballBody)[2]
-        # if not (0 <= z and z <= r):
-        # if not (z <= r):
-        #     self.__isError = True
-        #     return
-        # N = 10
-        # contacts = (dContact * N)()
-        # n = dCollide(o1, o2, N, byref(contacts[0].geom), sizeof(dContact))
-        # if not n == 1:
-        #     self.__isError = True
-        #     return
-        # contact = contacts[0]
-        # contact.surface.mu = float('inf')
-        # contact.surface.mode = dContactBounce
-        # contact.surface.bounce = 0.95
-        # contact.surface.bounce_vel = 0.0
-        # c = dJointCreateContact(self.__world, self.__contactgroup, byref(contact))
-        # dJointAttach(c, dGeomGetBody(contact.geom.g1), dGeomGetBody(contact.geom.g2))
+        # self.__isError = True
+        z = dBodyGetPosition(ballBody)[2]
+        if not (0 <= z and z <= r):
+            self.__isError = True
+            return
+        N = 10
+        contacts = (dContact * N)()
+        n = dCollide(o1, o2, N, byref(contacts[0].geom), sizeof(dContact))
+        if not n == 1:
+            self.__isError = True
+            return
+        contact = contacts[0]
+        contact.surface.mu = float('inf')
+        contact.surface.mode = dContactBounce
+        contact.surface.bounce = 0.95
+        contact.surface.bounce_vel = 0.0
+        c = dJointCreateContact(self.__world, self.__contactgroup, byref(contact))
+        dJointAttach(c, dGeomGetBody(contact.geom.g1), dGeomGetBody(contact.geom.g2))
 
 class TestSpace(object):
 
