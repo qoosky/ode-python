@@ -38,7 +38,11 @@ def __GetDrawstuffLib():
     return CDLL(drawstuffLibName, use_errno=True)
 
 def __load(lib, name, restype, *args):
-    return (CFUNCTYPE(restype, *args))((name, lib))
+    try:
+        return (CFUNCTYPE(restype, *args))((name, lib))
+    except AttributeError as e:
+        print('{} is not available for the installed drawstuff: {}'.format(name, str(e)))
+        return None
 
 loadDrawstuff = partial(__load, __GetDrawstuffLib())
 

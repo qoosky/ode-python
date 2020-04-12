@@ -39,7 +39,11 @@ def __GetOdeLib():
     return CDLL(odeLibName, use_errno=True)
 
 def __load(lib, name, restype, *args):
-    return (CFUNCTYPE(restype, *args))((name, lib))
+    try:
+        return (CFUNCTYPE(restype, *args))((name, lib))
+    except AttributeError as e:
+        print('{} is not available for the installed ODE: {}'.format(name, str(e)))
+        return None
 
 loadOde = partial(__load, __GetOdeLib())
 

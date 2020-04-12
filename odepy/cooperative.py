@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from .common import loadOde
+from .threading import dThreadingFunctionsInfo
+from .threading import dThreadingImplementationID
 
 from ctypes import Structure
 from ctypes import POINTER
@@ -18,6 +20,8 @@ dCooperativeID = POINTER(dxCooperative)
 dResourceRequirementsID = POINTER(dxResourceRequirements)
 dResourceContainerID = POINTER(dxResourceContainer)
 
+dCooperativeCreate = loadOde('dCooperativeCreate', dCooperativeID, POINTER(dThreadingFunctionsInfo), dThreadingImplementationID)
+dCooperativeDestroy = loadOde('dCooperativeDestroy', None, dCooperativeID)
 dResourceRequirementsCreate = loadOde('dResourceRequirementsCreate', dResourceRequirementsID, dCooperativeID)
 dResourceRequirementsDestroy = loadOde('dResourceRequirementsDestroy', None, dResourceRequirementsID)
 dResourceRequirementsClone = loadOde('dResourceRequirementsClone', dResourceRequirementsID, dResourceRequirementsID)
