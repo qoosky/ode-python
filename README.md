@@ -4,7 +4,9 @@ This is yet another Python binding of [Open Dynamics Engine (ODE)](https://www.o
 
 	pip install ode-python
 
-Please install ODE somewhere on the system. For example, on debian:
+Please note that ODE and Drawstuff are not included in this library.
+
+To install ODE on debian for example:
 
 	apt install libode-dev
 
