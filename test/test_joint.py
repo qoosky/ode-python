@@ -20,9 +20,7 @@ from odepy import dCreateCapsule
 from odepy import dGeomSetBody
 from odepy import dGeomGetBody
 from odepy import dCreateSphere
-from odepy import dBodyGetPosition
 from odepy import dJointCreateHinge
-from odepy import dJointGroupCreate
 from odepy import dJointSetHingeAxis
 from odepy import dJointSetHingeAnchor
 from odepy import dJointSetHingeParam
