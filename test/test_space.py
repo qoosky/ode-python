@@ -31,7 +31,7 @@ from odepy import dContact
 from odepy import dCollide
 from odepy import dContactBounce
 
-class NearCallback(object):
+class NearCallbackTestSpace(object):
 
     def __init__(self, world, contactgroup, groundGeom, ballGeom):
         self.__world = world
@@ -102,7 +102,7 @@ class TestSpace(object):
         return ball
 
     def test_bounce(self, world, space, ground, ball, contactgroup):
-        nearCallback = NearCallback(world=world, contactgroup=contactgroup, groundGeom=ground, ballGeom=ball['geom'])
+        nearCallback = NearCallbackTestSpace(world=world, contactgroup=contactgroup, groundGeom=ground, ballGeom=ball['geom'])
         tDelta = 0.01
         z0 = 3.0
         dBodySetPosition(ball['body'], 0, 0, z0)

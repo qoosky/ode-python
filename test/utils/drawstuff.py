@@ -13,9 +13,12 @@ from odepy import dGeomGetClass
 from odepy import dGeomGetBody
 from odepy import dGeomSphereGetRadius
 from odepy import dSphereClass
+from odepy import dCapsuleClass
 from odepy import dJointGroupEmpty
 from odepy import dSpaceCollide
 from odepy import dNearCallback
+from odepy import dGeomCapsuleGetParams
+from odepy import dReal
 
 from drawstuffpy import DS_VERSION
 from drawstuffpy import dsFunctions
@@ -24,6 +27,7 @@ from drawstuffpy import dsStepCallback
 from drawstuffpy import dsSetViewpoint
 from drawstuffpy import dsSetColor
 from drawstuffpy import dsDrawSphereD
+from drawstuffpy import dsDrawCapsuleD
 from drawstuffpy import dsSimulationLoop
 
 class DrawstuffError(Exception):
@@ -71,13 +75,22 @@ class Drawstuff(object):
         dJointGroupEmpty(self.__contactgroup)
         for geom in self.__geoms:
             body = dGeomGetBody(geom)
-            if dGeomGetClass(geom) != dSphereClass:
+            if dGeomGetClass(geom) == dSphereClass:
+                r = dGeomSphereGetRadius(geom)
+                pos = dBodyGetPosition(body)
+                rot = dBodyGetRotation(body)
+                dsSetColor(0.0, 1.0, 0.0)
+                dsDrawSphereD(pos, rot, r)
+            elif dGeomGetClass(geom) == dCapsuleClass:
+                r = dReal()
+                l = dReal()
+                dGeomCapsuleGetParams(geom, byref(r), byref(l))
+                pos = dBodyGetPosition(body)
+                rot = dBodyGetRotation(body)
+                dsSetColor(1.0, 1.0, 0.0)
+                dsDrawCapsuleD(pos, rot, l.value, r.value)
+            else:
                 raise DrawstuffError('Not supported geom class: {}'.format(dGeomGetClass(geom)))
-            r = dGeomSphereGetRadius(geom)
-            pos = dBodyGetPosition(body)
-            rot = dBodyGetRotation(body)
-            dsSetColor(0.0, 1.0, 0.0)
-            dsDrawSphereD(pos, rot, r)
 
     def Run(self):
         argc = 0
