@@ -39,8 +39,8 @@ class TestWorld(object):
             rot = dBodyGetRotation(sphere)
             vel = dBodyGetLinearVel(sphere)
             t = tDelta * i
-            v = -g * t
-            z = z0 - (g * t * t / 2.0)
+            v = g[2] * t
+            z = z0 + (g[2] * t * t / 2.0)
             for i in range(3):
                 if i < 2:
                     assert(pos[i] == 0)

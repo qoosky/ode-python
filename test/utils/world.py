@@ -10,13 +10,13 @@ from odepy import dWorldDestroy
 
 @fixture
 def g():
-    return 9.80665
+    return [0.0, 0.0, -9.80665]
 
 @fixture
 def world(g):
     dInitODE()
     world = dWorldCreate()
-    dWorldSetGravity(world, 0, 0, -g)
+    dWorldSetGravity(world, *g)
     yield world
     dWorldDestroy(world)
     dCloseODE()

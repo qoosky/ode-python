@@ -18,6 +18,7 @@ from odepy import dBodySetMass
 from odepy import dBodySetPosition
 from odepy import dCreateCapsule
 from odepy import dGeomSetBody
+from odepy import dGeomGetBody
 from odepy import dCreateSphere
 from odepy import dBodyGetPosition
 from odepy import dJointCreateHinge
@@ -25,62 +26,87 @@ from odepy import dJointGroupCreate
 from odepy import dJointSetHingeAxis
 from odepy import dJointSetHingeAnchor
 from odepy import dJointSetHingeParam
+from odepy import dGeomSphereGetRadius
+from odepy import dReal
+from odepy import dGeomCapsuleGetParams
+from odepy import dParamLoStop
+from odepy import dParamHiStop
 
 from .utils.nearcallback import NearCallbackBounceGround
 
 class TestJoint(object):
 
+    debug = False
+
     @fixture
-    def robot(self, world, space):
+    def ballGeom(self, world, space):
         mass = dMass()
-        pos = [0.0, 0.0, 2.5]
+        m = 1.0
+        r = 0.2
+        dMassSetZero(byref(mass))
+        dMassSetSphereTotal(byref(mass), m, r)
         ballBody = dBodyCreate(world)
-        dMassSetZero(byref(mass))
-        dMassSetSphereTotal(byref(mass), 1.0, 0.2)
         dBodySetMass(ballBody, byref(mass))
-        dBodySetPosition(ballBody, pos[0], pos[1], pos[2])
-        ballGeom = dCreateSphere(space, 0.2)
+        ballGeom = dCreateSphere(space, r)
         dGeomSetBody(ballGeom, ballBody)
+        return ballGeom
 
-        legBody = dBodyCreate(world)
+    @fixture
+    def legGeom(self, world, space):
+        m = 0.001
+        r = 0.025
+        l = 1.0
+        direction = 3
+        mass = dMass()
         dMassSetZero(byref(mass))
-        dMassSetCapsuleTotal(byref(mass), 0.001, 3, 0.025, 1.0)
+        dMassSetCapsuleTotal(byref(mass), m, direction, r, l)
+        legBody = dBodyCreate(world)
         dBodySetMass(legBody, byref(mass))
-        dBodySetPosition(legBody, pos[0], pos[1], pos[2] - 0.2 - 0.5*1.0)
-        legGeom = dCreateCapsule(space, 0.025, 1.0)
+        legGeom = dCreateCapsule(space, r, l)
         dGeomSetBody(legGeom, legBody)
+        return legGeom
 
-        hogegroup = dJointGroupCreate(1)
+    @fixture
+    def robotGeom(self, world, ballGeom, legGeom):
+        ballBody = dGeomGetBody(ballGeom)
+        legBody = dGeomGetBody(legGeom)
 
-        joint = dJointCreateHinge(world, hogegroup)
+        pos = [0.0, 0.0, 2.5]
+        dBodySetPosition(ballBody, pos[0], pos[1], pos[2])
+
+        rBall = dGeomSphereGetRadius(ballGeom)
+        rLeg = dReal()
+        lLeg = dReal()
+        dGeomCapsuleGetParams(legGeom, byref(rLeg), byref(lLeg))
+        dBodySetPosition(legBody, pos[0], pos[1], pos[2] - (rBall + lLeg.value / 2.0))
+
+        joint = dJointCreateHinge(world, 0)
         dJointAttach(joint, ballBody, legBody)
-        dJointSetHingeAnchor(joint, 0.0, 0.0, 2.5 - 0.2)
+        dJointSetHingeAnchor(joint, pos[0], pos[1], pos[2] - rBall)
         dJointSetHingeAxis(joint, 1, 0, 0)
-        from numpy import pi
-        dParamLoStop = 0
-        dParamHiStop = 1
-        dJointSetHingeParam(joint, dParamLoStop, -0.25 * pi)
-        dJointSetHingeParam(joint, dParamHiStop, 0.25 * pi)
-        # dJointSetHingeParam(joint, dParamLoStop, 0)
-        # dJointSetHingeParam(joint, dParamHiStop, 0)
+
+        dJointSetHingeParam(joint, dParamLoStop, 0)
+        dJointSetHingeParam(joint, dParamHiStop, 0)
+        # pi = 3.14159
+        # dJointSetHingeParam(joint, dParamLoStop, -pi / 2.0)
+        # dJointSetHingeParam(joint, dParamHiStop, pi / 2.0)
         # dJointSetHingeParam(joint, dParamLoStop, -pi)
         # dJointSetHingeParam(joint, dParamHiStop, pi)
-
         return ballGeom, legGeom
 
-    def test_joint(self, world, space, contactgroup, ground, robot):
+    @fixture
+    def g(self):
+        return [0.0, 0.1, -9.80665]
+
+    def test_joint(self, world, space, contactgroup, ground, robotGeom):
         nearCallback = NearCallbackBounceGround(world=world, contactgroup=contactgroup, groundGeom=ground)
 
-        tDelta = 0.01
-        z0 = 3.0
-
-        if True:
+        if self.debug:
             from .utils.drawstuff import Drawstuff
-            Drawstuff(world=world, geoms=[robot[0], robot[1]], space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
+            Drawstuff(world=world, geoms=list(robotGeom), space=space, contactgroup=contactgroup, nearCallback=nearCallback.Callback).Run()
 
-        for i in range(99):
+        tDelta = 0.01
+        for i in range(999):
             dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
-            dWorldStep(world, tDelta)
+            assert(dWorldStep(world, tDelta) == 1)
             dJointGroupEmpty(contactgroup)
-            # pos = dBodyGetPosition(robot[0])
-            # print(pos[2])

@@ -207,6 +207,10 @@ dJointTypePiston = 14
 dJointTypeDBall = 15
 dJointTypeDHinge = 16
 dJointTypeTransmission = 17
+
+dParamLoStop = 0
+dParamHiStop = 1
+
 dAMotorUser = 0
 dAMotorEuler = 1
 dTransmissionParallelAxes = 0

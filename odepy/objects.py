@@ -171,7 +171,13 @@ dBodySetMaxAngularSpeed = loadOde('dBodySetMaxAngularSpeed', None, dBodyID, dRea
 dBodyGetGyroscopicMode = loadOde('dBodyGetGyroscopicMode', c_int32, dBodyID)
 dBodySetGyroscopicMode = loadOde('dBodySetGyroscopicMode', None, dBodyID, c_int32)
 dJointCreateBall = loadOde('dJointCreateBall', dJointID, dWorldID, dJointGroupID)
-dJointCreateHinge = loadOde('dJointCreateHinge', dJointID, dWorldID, dJointGroupID)
+
+def dJointCreateHinge(world, jointGroup):
+    if isinstance(jointGroup, int):
+        return loadOde('dJointCreateHinge', dJointID, dWorldID, c_int32)(world, jointGroup)
+    else:
+        return loadOde('dJointCreateHinge', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
+
 dJointCreateSlider = loadOde('dJointCreateSlider', dJointID, dWorldID, dJointGroupID)
 dJointCreateContact = loadOde('dJointCreateContact', dJointID, dWorldID, dJointGroupID, POINTER(dContact))
 dJointCreateHinge2 = loadOde('dJointCreateHinge2', dJointID, dWorldID, dJointGroupID)
