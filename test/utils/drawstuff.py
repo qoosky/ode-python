@@ -5,6 +5,7 @@ from ctypes import create_string_buffer
 from ctypes import byref
 from ctypes import c_char
 from ctypes import c_float
+from random import random
 
 from odepy import dWorldStep
 from odepy import dBodyGetPosition
@@ -45,6 +46,7 @@ class Drawstuff(object):
         self.__space = space
         self.__contactgroup = contactgroup
         self.__geoms = geoms
+        self.__geomColors = [(random(), random(), random()) for i in self.__geoms]
         self.__nearCallback = nearCallback
         self.__tDelta = tDelta
         self.__dsVersion = dsVersion
@@ -73,13 +75,13 @@ class Drawstuff(object):
         dSpaceCollide(self.__space, 0, dNearCallback(self.__nearCallback))
         dWorldStep(self.__world, self.__tDelta)
         dJointGroupEmpty(self.__contactgroup)
-        for geom in self.__geoms:
+        for geom, color in zip(self.__geoms, self.__geomColors):
             body = dGeomGetBody(geom)
             if dGeomGetClass(geom) == dSphereClass:
                 r = dGeomSphereGetRadius(geom)
                 pos = dBodyGetPosition(body)
                 rot = dBodyGetRotation(body)
-                dsSetColor(0.0, 1.0, 0.0)
+                dsSetColor(*color)
                 dsDrawSphereD(pos, rot, r)
             elif dGeomGetClass(geom) == dCapsuleClass:
                 r = dReal()
@@ -87,7 +89,7 @@ class Drawstuff(object):
                 dGeomCapsuleGetParams(geom, byref(r), byref(l))
                 pos = dBodyGetPosition(body)
                 rot = dBodyGetRotation(body)
-                dsSetColor(1.0, 1.0, 0.0)
+                dsSetColor(*color)
                 dsDrawCapsuleD(pos, rot, l.value, r.value)
             else:
                 raise DrawstuffError('Not supported geom class: {}'.format(dGeomGetClass(geom)))
