@@ -31,7 +31,6 @@ from odepy import dParamLoStop
 from odepy import dParamHiStop
 from odepy import dJointCreateSlider
 from odepy import dJointSetSliderAxis
-from odepy import dJointSetSliderParam
 from odepy import dWorldSetERP
 from odepy import dWorldSetCFM
 from odepy import dJointSetSliderParam
@@ -120,7 +119,6 @@ class TestJoint2(object):
 
     def test_joint2(self, world, space, contactgroup, ground, robotGeom):
         assert True
-        return
 
         nearCallback = NearCallbackBounceGround(world=world, contactgroup=contactgroup, groundGeom=ground)
         jointSlider = robotGeom[3]
@@ -130,8 +128,10 @@ class TestJoint2(object):
         dWorldSetCFM(world, 0.0)
 
         class Hoge(object):
+
             def __init__(self):
                 self.__step = 0
+
             def stepCallback(self):
                 s = 200
                 self.__step += 1
@@ -152,8 +152,8 @@ class TestJoint2(object):
                 fmax2 = 800
                 tmp2 = dJointGetHingeAngle(jointHinge)
                 u2 = kp2 * (target - tmp2)
-                # dJointSetHingeParam(jointHinge, dParamVel, u2)
-                # dJointSetHingeParam(jointHinge, dParamFMax, fmax2)
+                dJointSetHingeParam(jointHinge, dParamVel, u2)
+                dJointSetHingeParam(jointHinge, dParamFMax, fmax2)
 
                 kp3 = 100
                 kt3 = 2.0
