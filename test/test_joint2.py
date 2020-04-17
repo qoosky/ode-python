@@ -120,62 +120,63 @@ class TestJoint2(object):
 
     def test_joint2(self, world, space, contactgroup, ground, robotGeom):
         assert True
+        return
 
-        # nearCallback = NearCallbackBounceGround(world=world, contactgroup=contactgroup, groundGeom=ground)
-        # jointSlider = robotGeom[3]
-        # jointHinge = robotGeom[4]
+        nearCallback = NearCallbackBounceGround(world=world, contactgroup=contactgroup, groundGeom=ground)
+        jointSlider = robotGeom[3]
+        jointHinge = robotGeom[4]
 
-        # dWorldSetERP(world, 1.0)
-        # dWorldSetCFM(world, 0.0)
+        dWorldSetERP(world, 1.0)
+        dWorldSetCFM(world, 0.0)
 
-        # class Hoge(object):
-        #     def __init__(self):
-        #         self.__step = 0
-        #     def stepCallback(self):
-        #         s = 200
-        #         self.__step += 1
-        #         if 0 <= self.__step % s and self.__step % s <= 10:
-        #             target = 0.5
-        #         else:
-        #             target = 0.0
+        class Hoge(object):
+            def __init__(self):
+                self.__step = 0
+            def stepCallback(self):
+                s = 200
+                self.__step += 1
+                if 0 <= self.__step % s and self.__step % s <= 10:
+                    target = 0.5
+                else:
+                    target = 0.0
 
-        #         kp = 25.0
-        #         # fmax = 400
-        #         fmax = 600
-        #         tmp = dJointGetSliderPosition(jointSlider)
-        #         u = kp * (target - tmp)
-        #         dJointSetSliderParam(jointSlider, dParamVel, u)
-        #         dJointSetSliderParam(jointSlider, dParamFMax, fmax)
+                kp = 25.0
+                # fmax = 400
+                fmax = 600
+                tmp = dJointGetSliderPosition(jointSlider)
+                u = kp * (target - tmp)
+                dJointSetSliderParam(jointSlider, dParamVel, u)
+                dJointSetSliderParam(jointSlider, dParamFMax, fmax)
 
-        #         kp2 = 5.0
-        #         fmax2 = 800
-        #         tmp2 = dJointGetHingeAngle(jointHinge)
-        #         u2 = kp2 * (target - tmp2)
-        #         # dJointSetHingeParam(jointHinge, dParamVel, u2)
-        #         # dJointSetHingeParam(jointHinge, dParamFMax, fmax2)
+                kp2 = 5.0
+                fmax2 = 800
+                tmp2 = dJointGetHingeAngle(jointHinge)
+                u2 = kp2 * (target - tmp2)
+                # dJointSetHingeParam(jointHinge, dParamVel, u2)
+                # dJointSetHingeParam(jointHinge, dParamFMax, fmax2)
 
-        #         kp3 = 100
-        #         kt3 = 2.0
-        #         tmp3 = dJointGetHingeAngle(jointHinge)
-        #         u3 = kp3 * (target - tmp3)
-        #         omega3 = dJointGetHingeAngleRate(jointHinge)
-        #         trq3 = kt3 * omega3
-        #         dJointAddHingeTorque(jointHinge, u3 - trq3)
+                kp3 = 100
+                kt3 = 2.0
+                tmp3 = dJointGetHingeAngle(jointHinge)
+                u3 = kp3 * (target - tmp3)
+                omega3 = dJointGetHingeAngleRate(jointHinge)
+                trq3 = kt3 * omega3
+                dJointAddHingeTorque(jointHinge, u3 - trq3)
 
-        # hoge = Hoge()
+        hoge = Hoge()
 
-        # if self.debug:
-        #     from .utils.drawstuff import Drawstuff
-        #     Drawstuff(world=world,
-        #               geoms=list(robotGeom[:3]),
-        #               space=space,
-        #               contactgroup=contactgroup,
-        #               stepCallback=hoge.stepCallback,
-        #               nearCallback=nearCallback.Callback,
-        #     ).Run()
+        if self.debug:
+            from .utils.drawstuff import Drawstuff
+            Drawstuff(world=world,
+                      geoms=list(robotGeom[:3]),
+                      space=space,
+                      contactgroup=contactgroup,
+                      stepCallback=hoge.stepCallback,
+                      nearCallback=nearCallback.Callback,
+            ).Run()
 
-        # tDelta = 0.01
-        # for i in range(999):
-        #     dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
-        #     assert(dWorldStep(world, tDelta) == 1)
-        #     dJointGroupEmpty(contactgroup)
+        tDelta = 0.01
+        for i in range(999):
+            dSpaceCollide(space, 0, dNearCallback(nearCallback.Callback))
+            assert(dWorldStep(world, tDelta) == 1)
+            dJointGroupEmpty(contactgroup)
