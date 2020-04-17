@@ -172,8 +172,7 @@ class TestJoint2(object):
                       space=space,
                       contactgroup=contactgroup,
                       stepCallback=hoge.stepCallback,
-                      nearCallback=nearCallback.Callback,
-            ).Run()
+                      nearCallback=nearCallback.Callback).Run()
 
         tDelta = 0.01
         for i in range(999):
