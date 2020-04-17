@@ -30,6 +30,7 @@ from drawstuffpy import dsSetColor
 from drawstuffpy import dsDrawSphereD
 from drawstuffpy import dsDrawCapsuleD
 from drawstuffpy import dsSimulationLoop
+from drawstuffpy import dsCommandCallback
 
 class DrawstuffError(Exception):
     pass
@@ -37,6 +38,8 @@ class DrawstuffError(Exception):
 class Drawstuff(object):
 
     def __init__(self, world, space, contactgroup, geoms, nearCallback,
+                 beforeStepCallback=None,
+                 commandCallback=None,
                  tDelta=0.01,
                  dsVersion=DS_VERSION,
                  pathToTextures='./ode-0.16.1/drawstuff/textures'.encode('utf-8'),
@@ -48,6 +51,8 @@ class Drawstuff(object):
         self.__geoms = geoms
         self.__geomColors = [(random(), random(), random()) for i in self.__geoms]
         self.__nearCallback = nearCallback
+        self.__beforeStepCallback = beforeStepCallback
+        self.__commandCallback = commandCallback
         self.__tDelta = tDelta
         self.__dsVersion = dsVersion
         self.__pathToTextures = pathToTextures
@@ -61,6 +66,8 @@ class Drawstuff(object):
         self.__fn.start = dsStartCallback(self.__StartCallback)
         self.__fn.step = dsStepCallback(self.__StepCallback)
         self.__fn.path_to_textures = create_string_buffer(self.__pathToTextures)
+        if self.__commandCallback is not None:
+            self.__fn.command = dsCommandCallback(self.__commandCallback)
 
     def __StartCallback(self):
         xyz = (c_float * 3)()
@@ -72,6 +79,8 @@ class Drawstuff(object):
         dsSetViewpoint(xyz, hpr)
 
     def __StepCallback(self, pause):
+        if self.__beforeStepCallback is not None:
+            self.__beforeStepCallback()
         dSpaceCollide(self.__space, 0, dNearCallback(self.__nearCallback))
         dWorldStep(self.__world, self.__tDelta)
         dJointGroupEmpty(self.__contactgroup)
