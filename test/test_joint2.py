@@ -13,7 +13,6 @@ from odepy import dGeomCapsuleGetParams
 from odepy import dGeomGetBody
 from odepy import dGeomSetBody
 from odepy import dGeomSphereGetRadius
-from odepy import dJointAddHingeTorque
 from odepy import dJointAttach
 from odepy import dJointCreateHinge
 from odepy import dJointCreateSlider
@@ -143,7 +142,6 @@ class TestJoint2(object):
 
         nearCallback = NearCallbackBounceGround(world=world, contactgroup=contactgroup, groundGeom=ground)
         jointSlider = robot['joints'][0]
-        jointHinge = robot['joints'][1]
 
         dWorldSetERP(world, 1.0)
         dWorldSetCFM(world, 0.0)
