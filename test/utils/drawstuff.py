@@ -31,6 +31,7 @@ from drawstuffpy import dsDrawSphereD
 from drawstuffpy import dsDrawCapsuleD
 from drawstuffpy import dsSimulationLoop
 from drawstuffpy import dsCommandCallback
+from drawstuffpy import dsSetSphereQuality
 
 class DrawstuffError(Exception):
     pass
@@ -44,7 +45,8 @@ class Drawstuff(object):
                  dsVersion=DS_VERSION,
                  pathToTextures='./ode-0.16.1/drawstuff/textures'.encode('utf-8'),
                  cameraXyz=[3.0, 0.0, 1.0],
-                 cameraHpr=[-180.0, 0.0, 0.0]):
+                 cameraHpr=[-180.0, 0.0, 0.0],
+                 sphereQuality=None):
         self.__world = world
         self.__space = space
         self.__contactgroup = contactgroup
@@ -58,6 +60,7 @@ class Drawstuff(object):
         self.__pathToTextures = pathToTextures
         self.__cameraXyz = cameraXyz
         self.__cameraHpr = cameraHpr
+        self.__sphereQuality = sphereQuality
         self.__fn = dsFunctions()
         self.__SetDrawStuff()
 
@@ -77,6 +80,8 @@ class Drawstuff(object):
         for i, v in enumerate(self.__cameraHpr):
             hpr[i] = v
         dsSetViewpoint(xyz, hpr)
+        if self.__sphereQuality is not None:
+            dsSetSphereQuality(self.__sphereQuality)
 
     def __StepCallback(self, pause):
         if self.__beforeStepCallback is not None:
