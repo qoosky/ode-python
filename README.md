@@ -1,4 +1,4 @@
-ode-python [![Build Status](https://travis-ci.com/qoosky/ode-python.svg?branch=master)](https://travis-ci.com/qoosky/ode-python)
+ode-python [![Build Status](https://travis-ci.com/qoosky/ode-python.svg?branch=master)](https://travis-ci.com/qoosky/ode-python) [![PyPI version](https://badge.fury.io/py/ode-python.svg)](https://badge.fury.io/py/ode-python)
 ==================
 This is yet another Python binding of [Open Dynamics Engine (ODE)](https://www.ode.org/).
 
