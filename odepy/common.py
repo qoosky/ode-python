@@ -210,6 +210,18 @@ dJointTypeTransmission = 17
 
 dParamLoStop = 0
 dParamHiStop = 1
+dParamVel = 2
+dParamLoVel = 3
+dParamHiVel = 4
+dParamFMax = 5
+dParamFudgeFactor = 6
+dParamBounce = 7
+dParamCFM = 8
+dParamStopERP = 9
+dParamStopCFM = 10
+dParamSuspensionERP = 11
+dParamSuspensionCFM = 12
+dParamERP = 13
 
 dAMotorUser = 0
 dAMotorEuler = 1

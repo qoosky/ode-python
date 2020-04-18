@@ -178,7 +178,12 @@ def dJointCreateHinge(world, jointGroup):
     else:
         return loadOde('dJointCreateHinge', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
 
-dJointCreateSlider = loadOde('dJointCreateSlider', dJointID, dWorldID, dJointGroupID)
+def dJointCreateSlider(world, jointGroup):
+    if isinstance(jointGroup, int):
+        return loadOde('dJointCreateSlider', dJointID, dWorldID, c_int32)(world, jointGroup)
+    else:
+        return loadOde('dJointCreateSlider', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
+
 dJointCreateContact = loadOde('dJointCreateContact', dJointID, dWorldID, dJointGroupID, POINTER(dContact))
 dJointCreateHinge2 = loadOde('dJointCreateHinge2', dJointID, dWorldID, dJointGroupID)
 dJointCreateUniversal = loadOde('dJointCreateUniversal', dJointID, dWorldID, dJointGroupID)
