@@ -223,6 +223,36 @@ dParamSuspensionERP = 11
 dParamSuspensionCFM = 12
 dParamERP = 13
 
+dParamLoStop2 = 0 + 0x100
+dParamHiStop2 = 1 + 0x100
+dParamVel2 = 2 + 0x100
+dParamLoVel2 = 3 + 0x100
+dParamHiVel2 = 4 + 0x100
+dParamFMax2 = 5 + 0x100
+dParamFudgeFactor2 = 6 + 0x100
+dParamBounce2 = 7 + 0x100
+dParamCFM2 = 8 + 0x100
+dParamStopERP2 = 9 + 0x100
+dParamStopCFM2 = 10 + 0x100
+dParamSuspensionERP2 = 11 + 0x100
+dParamSuspensionCFM2 = 12 + 0x100
+dParamERP2 = 13 + 0x100
+
+dParamLoStop3 = 0 + 0x200
+dParamHiStop3 = 1 + 0x200
+dParamVel3 = 2 + 0x200
+dParamLoVel3 = 3 + 0x200
+dParamHiVel3 = 4 + 0x200
+dParamFMax3 = 5 + 0x200
+dParamFudgeFactor3 = 6 + 0x200
+dParamBounce3 = 7 + 0x200
+dParamCFM3 = 8 + 0x200
+dParamStopERP3 = 9 + 0x200
+dParamStopCFM3 = 10 + 0x200
+dParamSuspensionERP3 = 11 + 0x200
+dParamSuspensionCFM3 = 12 + 0x200
+dParamERP3 = 13 + 0x200
+
 dAMotorUser = 0
 dAMotorEuler = 1
 dTransmissionParallelAxes = 0

@@ -170,7 +170,12 @@ dBodyGetMaxAngularSpeed = loadOde('dBodyGetMaxAngularSpeed', dReal, dBodyID)
 dBodySetMaxAngularSpeed = loadOde('dBodySetMaxAngularSpeed', None, dBodyID, dReal)
 dBodyGetGyroscopicMode = loadOde('dBodyGetGyroscopicMode', c_int32, dBodyID)
 dBodySetGyroscopicMode = loadOde('dBodySetGyroscopicMode', None, dBodyID, c_int32)
-dJointCreateBall = loadOde('dJointCreateBall', dJointID, dWorldID, dJointGroupID)
+
+def dJointCreateBall(world, jointGroup):
+    if isinstance(jointGroup, int):
+        return loadOde('dJointCreateBall', dJointID, dWorldID, c_int32)(world, jointGroup)
+    else:
+        return loadOde('dJointCreateBall', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
 
 def dJointCreateHinge(world, jointGroup):
     if isinstance(jointGroup, int):
@@ -190,9 +195,21 @@ dJointCreateUniversal = loadOde('dJointCreateUniversal', dJointID, dWorldID, dJo
 dJointCreatePR = loadOde('dJointCreatePR', dJointID, dWorldID, dJointGroupID)
 dJointCreatePU = loadOde('dJointCreatePU', dJointID, dWorldID, dJointGroupID)
 dJointCreatePiston = loadOde('dJointCreatePiston', dJointID, dWorldID, dJointGroupID)
-dJointCreateFixed = loadOde('dJointCreateFixed', dJointID, dWorldID, dJointGroupID)
+
+def dJointCreateFixed(world, jointGroup):
+    if isinstance(jointGroup, int):
+        return loadOde('dJointCreateFixed', dJointID, dWorldID, c_int32)(world, jointGroup)
+    else:
+        return loadOde('dJointCreateFixed', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
+
 dJointCreateNull = loadOde('dJointCreateNull', dJointID, dWorldID, dJointGroupID)
-dJointCreateAMotor = loadOde('dJointCreateAMotor', dJointID, dWorldID, dJointGroupID)
+
+def dJointCreateAMotor(world, jointGroup):
+    if isinstance(jointGroup, int):
+        return loadOde('dJointCreateAMotor', dJointID, dWorldID, c_int32)(world, jointGroup)
+    else:
+        return loadOde('dJointCreateAMotor', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
+
 dJointCreateLMotor = loadOde('dJointCreateLMotor', dJointID, dWorldID, dJointGroupID)
 dJointCreatePlane2D = loadOde('dJointCreatePlane2D', dJointID, dWorldID, dJointGroupID)
 dJointCreateDBall = loadOde('dJointCreateDBall', dJointID, dWorldID, dJointGroupID)
@@ -203,7 +220,13 @@ dJointGroupCreate = loadOde('dJointGroupCreate', dJointGroupID, c_int32)
 dJointGroupDestroy = loadOde('dJointGroupDestroy', None, dJointGroupID)
 dJointGroupEmpty = loadOde('dJointGroupEmpty', None, dJointGroupID)
 dJointGetNumBodies = loadOde('dJointGetNumBodies', c_int32, dJointID)
-dJointAttach = loadOde('dJointAttach', None, dJointID, dBodyID, dBodyID)
+
+def dJointAttach(joint, body1, body2):
+    if isinstance(body2, int):
+        return loadOde('dJointAttach', None, dJointID, dBodyID, c_int32)(joint, body1, body2)
+    else:
+        return loadOde('dJointAttach', None, dJointID, dBodyID, dBodyID)(joint, body1, body2)
+
 dJointEnable = loadOde('dJointEnable', None, dJointID)
 dJointDisable = loadOde('dJointDisable', None, dJointID)
 dJointIsEnabled = loadOde('dJointIsEnabled', c_int32, dJointID)
