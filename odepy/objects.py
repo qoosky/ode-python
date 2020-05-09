@@ -190,8 +190,19 @@ def dJointCreateSlider(world, jointGroup):
         return loadOde('dJointCreateSlider', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
 
 dJointCreateContact = loadOde('dJointCreateContact', dJointID, dWorldID, dJointGroupID, POINTER(dContact))
-dJointCreateHinge2 = loadOde('dJointCreateHinge2', dJointID, dWorldID, dJointGroupID)
-dJointCreateUniversal = loadOde('dJointCreateUniversal', dJointID, dWorldID, dJointGroupID)
+
+def dJointCreateHinge2(world, jointGroup):
+    if isinstance(jointGroup, int):
+        return loadOde('dJointCreateHinge2', dJointID, dWorldID, c_int32)(world, jointGroup)
+    else:
+        return loadOde('dJointCreateHinge2', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
+
+def dJointCreateUniversal(world, jointGroup):
+    if isinstance(jointGroup, int):
+        return loadOde('dJointCreateUniversal', dJointID, dWorldID, c_int32)(world, jointGroup)
+    else:
+        return loadOde('dJointCreateUniversal', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
+
 dJointCreatePR = loadOde('dJointCreatePR', dJointID, dWorldID, dJointGroupID)
 dJointCreatePU = loadOde('dJointCreatePU', dJointID, dWorldID, dJointGroupID)
 dJointCreatePiston = loadOde('dJointCreatePiston', dJointID, dWorldID, dJointGroupID)
@@ -211,7 +222,13 @@ def dJointCreateAMotor(world, jointGroup):
         return loadOde('dJointCreateAMotor', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
 
 dJointCreateLMotor = loadOde('dJointCreateLMotor', dJointID, dWorldID, dJointGroupID)
-dJointCreatePlane2D = loadOde('dJointCreatePlane2D', dJointID, dWorldID, dJointGroupID)
+
+def dJointCreatePlane2D(world, jointGroup):
+    if isinstance(jointGroup, int):
+        return loadOde('dJointCreatePlane2D', dJointID, dWorldID, c_int32)(world, jointGroup)
+    else:
+        return loadOde('dJointCreatePlane2D', dJointID, dWorldID, dJointGroupID)(world, jointGroup)
+
 dJointCreateDBall = loadOde('dJointCreateDBall', dJointID, dWorldID, dJointGroupID)
 dJointCreateDHinge = loadOde('dJointCreateDHinge', dJointID, dWorldID, dJointGroupID)
 dJointCreateTransmission = loadOde('dJointCreateTransmission', dJointID, dWorldID, dJointGroupID)
