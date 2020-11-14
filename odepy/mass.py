@@ -24,7 +24,7 @@ class dMass(Structure):
 
 dMassCheck = loadOde('dMassCheck', c_int32, POINTER(dMass))
 dMassSetZero = loadOde('dMassSetZero', None, POINTER(dMass))
-dMassSetParameters = loadOde('dMassSetParameters', None, POINTER(dReal), dReal,
+dMassSetParameters = loadOde('dMassSetParameters', None, POINTER(dMass), dReal,
                              dReal, dReal, dReal,
                              dReal, dReal, dReal,
                              dReal, dReal, dReal)
