@@ -49,7 +49,7 @@ jobs:
     install:
       - sudo apt update
       - sudo apt install -y libgl1-mesa-dev libglu1-mesa-dev
-      - python3 -m pip install --upgrade setuptools wheel twine
+      - python3 -m pip install --upgrade --upgrade-strategy eager setuptools wheel twine
     script:
       - python3 setup.py sdist bdist_wheel
       - python3 -m twine upload --repository-url "${PYPI_URL}" -u "${PYPI_USER}" -p "${PYPI_PASSWORD}" dist/*
